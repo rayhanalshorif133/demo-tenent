@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ভাড়া ও বিলিং ব্যবস্থাপনা (Billing & Invoicing) | স্টেডিয়াম মার্কেট</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-xl">
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/50">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <i class="fa-solid fa-shop text-lg"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-base leading-tight">স্টেডিয়াম মার্কেট</h1>
+        <p class="text-[11px] text-blue-400 font-medium">শপ ও টেন্যান্ট পোর্টাল</p>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+      <div class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">মেনু ও অপশনস</div>
+      
+      <!-- 1. Live Dashboard -->
+      <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>লাইভ ড্যাশবোর্ড</span>
+      </a>
+
+      <!-- 2. Shop Management -->
+      <a href="shops.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-store w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>দোকান ব্যবস্থাপনা</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">১০০টি</span>
+      </a>
+
+      <!-- 3. Tenant Management -->
+      <a href="tenants.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-users w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়াটিয়া প্রোফাইল</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৮২ জন</span>
+      </a>
+
+      <!-- 4. Billing & Collection (Active) -->
+      <a href="billing.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-md shadow-blue-600/30">
+        <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-blue-200"></i>
+        <span>ভাড়া ও বিলিং</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-900/60 text-amber-300">বকেয়া</span>
+      </a>
+
+      <!-- 5. Agreement & Lease -->
+      <a href="leases.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-contract w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>চুক্তি ও মেয়াদ</span>
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-900/70 text-rose-300">৪ শেষ</span>
+      </a>
+
+      <!-- 6. Notice & Maintenance -->
+      <a href="notices-maintenance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>নোটিশ ও অভিযোগ</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৩টি</span>
+      </a>
+
+      <!-- 7. Reports -->
+      <a href="reports.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-line w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>রিপোর্টস ও এনালাইসিস</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-3 m-3 rounded-xl bg-slate-800/80 border border-slate-700/60">
+      <div class="flex items-center justify-between text-xs mb-1.5">
+        <span class="text-slate-300 font-medium">চলতি মাসের আদায়</span>
+        <span class="text-emerald-400 font-bold">৭৯.৮%</span>
+      </div>
+      <div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+        <div class="bg-emerald-500 h-full rounded-full" style="width: 79.8%"></div>
+      </div>
+      <div class="text-[11px] text-slate-400 mt-2">বকেয়া: ৳৩,১৫,০০০</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-30">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">ভাড়া আদায় ও বিলিং ট্র্যাকার</h2>
+          <p class="text-xs text-slate-500 hidden sm:block">মাসিক ইনভয়েসিং, ইউটিলিটি চার্জ সংযোজন ও মানি রিসিট প্রস্তুতকরণ</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openModal('batchInvoiceModal')" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold px-3 py-2 rounded-xl transition">
+          <i class="fa-solid fa-bolt text-amber-500"></i>
+          <span class="hidden sm:inline">অটো ইনভয়েস জেনারেট</span>
+        </button>
+        <button onclick="openModal('utilityBillModal')" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold px-3 py-2 rounded-xl transition">
+          <i class="fa-solid fa-faucet-drip text-blue-500"></i>
+          <span class="hidden sm:inline">ইউটিলিটি বিল যোগ</span>
+        </button>
+        <button onclick="openCollectPaymentModal('A-102', 'তানভীর আহমেদ', 20500)" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-3 sm:px-4 py-2 rounded-xl shadow-md shadow-emerald-500/20 transition">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+          <span>ভাড়া গ্রহণ করুন</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- Financial Summary Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+          <p class="text-xs font-semibold text-slate-500">চলতি মাসের মোট দাবি</p>
+          <p class="text-2xl font-black text-slate-800 mt-1">৳১৫,৬০,০০০</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">৮২টি সক্রিয় ভাড়াটিয়ার বিল</p>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+          <p class="text-xs font-semibold text-emerald-600">সংগৃহীত পরিমাণ (Collected)</p>
+          <p class="text-2xl font-black text-emerald-600 mt-1">৳১২,৪৫,০০০</p>
+          <div class="flex items-center gap-1.5 mt-1 text-[11px] text-emerald-700 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ৬৪টি দোকান সম্পূর্ণ পরিশোধিত
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+          <p class="text-xs font-semibold text-rose-600">মোট অপরিশোধিত বকেয়া</p>
+          <p class="text-2xl font-black text-rose-600 mt-1">৳৩,১৫,০০০</p>
+          <div class="flex items-center gap-1.5 mt-1 text-[11px] text-rose-700 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> ১৮টি দোকানে আংশিক/বকেয়া
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+          <p class="text-xs font-semibold text-indigo-600">ইউটিলিটি ও সার্ভিস ফান্ড</p>
+          <p class="text-2xl font-black text-indigo-600 mt-1">৳২,০৫,০০০</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">বিদ্যুৎ, পানি ও পরিচ্ছন্নতা বিল</p>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Search -->
+        <div class="relative flex-1 max-w-md">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="billingSearchInput" onkeyup="filterTable('billingSearchInput', 'billingTable')" placeholder="ইনভয়েস নং, দোকান বা ভাড়াটিয়া দিয়ে সার্চ..." class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition">
+        </div>
+
+        <!-- Dropdowns -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Month Selector -->
+          <select class="bg-slate-50 border border-slate-200 text-slate-700 text-xs sm:text-sm rounded-xl px-3 py-2 font-semibold">
+            <option>নভেম্বর ২০২৬ (চলতি মাস)</option>
+            <option>অক্টোবর ২০২৬</option>
+            <option>সেপ্টেম্বর ২০২৬</option>
+            <option>আগস্ট ২০২৬</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="paymentStatusFilter" onchange="filterPaymentStatus(this.value)" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs sm:text-sm rounded-xl px-3 py-2">
+            <option value="all">সকল বিলিং স্ট্যাটাস</option>
+            <option value="পরিশোধিত">পরিশোধিত (Paid)</option>
+            <option value="আংশিক">আংশিক পরিশোধিত (Partial)</option>
+            <option value="বকেয়া">বকেয়া (Unpaid)</option>
+          </select>
+
+          <button onclick="showToast('সকল ইনভয়েস পিডিএফ ফরম্যাটে এক্সপোর্ট হচ্ছে...', 'info')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            <i class="fa-solid fa-file-pdf mr-1 text-rose-500"></i> এক্সপোর্ট
+          </button>
+        </div>
+      </div>
+
+      <!-- Invoices and Payments Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table id="billingTable" class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4">ইনভয়েস নং</th>
+                <th class="py-3.5 px-4">দোকান ও ভাড়াটিয়া</th>
+                <th class="py-3.5 px-4">বিলিং মাস</th>
+                <th class="py-3.5 px-4">ভাড়ার ব্রেকডাউন (মূল + ইউটিলিটি)</th>
+                <th class="py-3.5 px-4">মোট দাবি</th>
+                <th class="py-3.5 px-4">পরিশোধিত</th>
+                <th class="py-3.5 px-4">বকেয়া</th>
+                <th class="py-3.5 px-4">পেমেন্ট মাধ্যম</th>
+                <th class="py-3.5 px-4">স্ট্যাটাস</th>
+                <th class="py-3.5 px-4 text-right">রিসিট ও অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="billingTableBody" class="divide-y divide-slate-100">
+              
+              <!-- Row 1: Paid by bKash -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="পরিশোধিত">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">INV-2026-11-001</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #A-102</div>
+                  <div class="text-[11px] text-slate-500">তানভীর আহমেদ (ভিক্টোরি স্পোর্টস)</div>
+                </td>
+                <td class="py-3.5 px-4 text-slate-600">নভেম্বর ২০২৬</td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700">মূল: ৳১৮,০০০</div>
+                  <div class="text-[10px] text-slate-400">বিদ্যুৎ: ৳১,৫০০ • সার্ভিস: ৳১,০০০</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২০,৫০০</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600">৳২০,৫০০</td>
+                <td class="py-3.5 px-4 text-slate-400">৳০</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-pink-700 bg-pink-50 px-2 py-0.5 rounded-md">
+                    <i class="fa-solid fa-mobile-screen"></i> বিকাশ (9H7B6K)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-circle-check"></i> পরিশোধিত
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="printMoneyReceipt('INV-2026-11-001', 'শপ #A-102', 'তানভীর আহমেদ', 'ভিক্টোরি স্পোর্টস', 'নভেম্বর ২০২৬', 18000, 1500, 1000, 20500, 20500, 'বিকাশ (Trx: 9H7B6K)', '১৮ নভে ২০২৬')" class="px-2.5 py-1 text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="রিসিট প্রিন্ট">
+                    <i class="fa-solid fa-receipt mr-1"></i> রিসিট
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 2: Paid by Bank -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="পরিশোধিত">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">INV-2026-11-002</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #B-201</div>
+                  <div class="text-[11px] text-slate-500">মাহবুবুর রহমান (ক্রিকেট পয়েন্ট)</div>
+                </td>
+                <td class="py-3.5 px-4 text-slate-600">নভেম্বর ২০২৬</td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700">মূল: ৳২২,০০০</div>
+                  <div class="text-[10px] text-slate-400">বিদ্যুৎ: ৳২,১০০ • সার্ভিস: ৳১,২০০</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২৫,৩০০</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600">৳২৫,৩০০</td>
+                <td class="py-3.5 px-4 text-slate-400">৳০</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md">
+                    <i class="fa-solid fa-building-columns"></i> ব্যাংক (অগ্রণী)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-circle-check"></i> পরিশোধিত
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="printMoneyReceipt('INV-2026-11-002', 'শপ #B-201', 'মাহবুবুর রহমান', 'ক্রিকেট পয়েন্ট', 'নভেম্বর ২০২৬', 22000, 2100, 1200, 25300, 25300, 'ব্যাংক ট্রান্সফার (অগ্রণী)', '১৭ নভে ২০২৬')" class="px-2.5 py-1 text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="রিসিট প্রিন্ট">
+                    <i class="fa-solid fa-receipt mr-1"></i> রিসিট
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 3: Partial Payment -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="আংশিক">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">INV-2026-11-003</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #C-305</div>
+                  <div class="text-[11px] text-slate-500">জসিম উদ্দিন (মেডেল ও ট্রফি)</div>
+                </td>
+                <td class="py-3.5 px-4 text-slate-600">নভেম্বর ২০২৬</td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700">মূল: ৳১৫,০০০</div>
+                  <div class="text-[10px] text-slate-400">বিদ্যুৎ: ৳১,২০০ • সার্ভিস: ৳৮০০</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳১৭,০০০</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600">৳১০,০০০</td>
+                <td class="py-3.5 px-4 font-bold text-amber-600">৳৭,০০০</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                    <i class="fa-solid fa-money-bill-wave"></i> ক্যাশ পেমেন্ট
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-clock"></i> আংশিক পরিশোধ
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="printMoneyReceipt('INV-2026-11-003', 'শপ #C-305', 'জসিম উদ্দিন', 'মেডেল ও ট্রফি', 'নভেম্বর ২০২৬', 15000, 1200, 800, 17000, 10000, 'নগদ ক্যাশ (আংশিক)', '১৬ নভে ২০২৬')" class="px-2 py-1 text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="রিসিট">
+                      <i class="fa-solid fa-receipt"></i>
+                    </button>
+                    <button onclick="openCollectPaymentModal('C-305', 'জসিম উদ্দিন', 7000)" class="px-2 py-1 text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg transition" title="বকেয়া আদায়">
+                      <i class="fa-solid fa-plus"></i> বাকি
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4: Unpaid / Due -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="বকেয়া">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">INV-2026-11-004</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #D-112</div>
+                  <div class="text-[11px] text-slate-500">তন্ময় স্পোর্টস (মো: তন্ময়)</div>
+                </td>
+                <td class="py-3.5 px-4 text-slate-600">নভেম্বর ২০২৬</td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700">মূল: ৳১৯,৫০০</div>
+                  <div class="text-[10px] text-slate-400">বিদ্যুৎ: ৳১,৮০০ • সার্ভিস: ৳১,২০০</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২২,৫০০</td>
+                <td class="py-3.5 px-4 font-medium text-slate-400">৳০</td>
+                <td class="py-3.5 px-4 font-bold text-rose-600">৳২২,৫০০</td>
+                <td class="py-3.5 px-4 text-slate-400">—</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-circle-exclamation"></i> সম্পূর্ণ বকেয়া
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openCollectPaymentModal('D-112', 'তন্ময় স্পোর্টস', 22500)" class="px-2.5 py-1 text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg transition">
+                      <i class="fa-solid fa-dollar-sign mr-1"></i>আদায়
+                    </button>
+                    <button onclick="showToast('শপ #D-112 তে বকেয়া তাগিদ এসএমএস পাঠানো হয়েছে', 'success')" class="px-2 py-1 text-xs font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg transition" title="তাগিদ পাঠান">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 5: Paid by Nagad -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="পরিশোধিত">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">INV-2026-11-005</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #A-105</div>
+                  <div class="text-[11px] text-slate-500">মো: রফিকুল ইসলাম (রফিক ফ্যাশন)</div>
+                </td>
+                <td class="py-3.5 px-4 text-slate-600">নভেম্বর ২০২৬</td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700">মূল: ৳১৯,০০০</div>
+                  <div class="text-[10px] text-slate-400">বিদ্যুৎ: ৳১,৪০০ • সার্ভিস: ৳১,০০০</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২১,৪০০</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-600">৳২১,৪০০</td>
+                <td class="py-3.5 px-4 text-slate-400">৳০</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-orange-700 bg-orange-50 px-2 py-0.5 rounded-md">
+                    <i class="fa-solid fa-mobile-screen"></i> নগদ (NG7719)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-circle-check"></i> পরিশোধিত
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="printMoneyReceipt('INV-2026-11-005', 'শপ #A-105', 'মো: রফিকুল ইসলাম', 'রফিক ফ্যাশন', 'নভেম্বর ২০২৬', 19000, 1400, 1000, 21400, 21400, 'নগদ ওয়ালেট (Trx: NG7719)', '১৫ নভে ২০২৬')" class="px-2.5 py-1 text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="রিসিট প্রিন্ট">
+                    <i class="fa-solid fa-receipt mr-1"></i> রিসিট
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: Automatic Batch Monthly Invoice Generator -->
+  <div id="batchInvoiceModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('batchInvoiceModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 modal-content z-10">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-bolt"></i>
+          </span>
+          <div>
+            <h3 class="text-base font-bold text-slate-800">অটোমেটিক মান্থলি ইনভয়েস জেনারেট</h3>
+            <p class="text-xs text-slate-500">সকল সক্রিয় ভাড়াটিয়াদের নামে এক ক্লিকে ভাড়ার বিল তৈরি</p>
+          </div>
+        </div>
+        <button onclick="closeModal('batchInvoiceModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); handleGenerateBatch();" class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">বিলিং মাস*</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-slate-800">
+              <option>ডিসেম্বর ২০২৬ (আসন্ন মাস)</option>
+              <option selected>নভেম্বর ২০২৬ (চলতি মাস)</option>
+              <option>অক্টোবর ২০২৬</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">বিল প্রদানের শেষ তারিখ*</label>
+            <input type="date" value="2026-11-10" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-medium">
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <label class="flex items-center gap-2 text-slate-700 font-semibold cursor-pointer">
+            <input type="checkbox" checked class="rounded text-blue-600">
+            <span>দোকান প্রতি নির্ধারিত মাসিক মূল ভাড়া যোগ করুন</span>
+          </label>
+          <label class="flex items-center gap-2 text-slate-700 font-semibold cursor-pointer">
+            <input type="checkbox" checked class="rounded text-blue-600">
+            <span>বিদ্যুৎ মিটার অনুযায়ী ইউটিলিটি বিল স্বয়ংক্রিয়ভাবে যোগ করুন</span>
+          </label>
+          <label class="flex items-center gap-2 text-slate-700 font-semibold cursor-pointer">
+            <input type="checkbox" checked class="rounded text-blue-600">
+            <span>পানি, ক্লিনিং ও সার্বিক সার্ভিস চার্জ যুক্ত করুন</span>
+          </label>
+          <label class="flex items-center gap-2 text-slate-700 font-semibold cursor-pointer">
+            <input type="checkbox" checked class="rounded text-blue-600">
+            <span>পূর্বের অপরিশোধিত বকেয়া থাকলে তা স্বয়ংক্রিয়ভাবে যোগ করুন</span>
+          </label>
+        </div>
+
+        <div class="p-3 bg-blue-50 border border-blue-100 rounded-xl text-blue-800">
+          <p class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> সামারি:</p>
+          <p class="text-[11px] mt-1">৮২টি সক্রিয় দোকানের জন্য প্রায় ৳১৫,৬০,০০০ টাকার ইনভয়েস তৈরি হবে এবং প্রতিটি ভাড়াটিয়ার মোবাইলে এসএমএস অ্যালার্ট চলে যাবে।</p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('batchInvoiceModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">
+            <i class="fa-solid fa-file-circle-plus mr-1"></i> ইনভয়েস তৈরি করুন
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Add Utility Charge Modal -->
+  <div id="utilityBillModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('utilityBillModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 modal-content z-10">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">ইউটিলিটি ও সার্ভিস বিল সংযোজন</h3>
+          <p class="text-xs text-slate-500">বিদ্যুৎ, পানি ও পরিচ্ছন্নতা বিল মূল ভাড়ার সাথে যোগ করুন</p>
+        </div>
+        <button onclick="closeModal('utilityBillModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal('utilityBillModal'); showToast('ইউটিলিটি বিল সফলভাবে যুক্ত হয়েছে!', 'success');" class="mt-4 space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">দোকান নির্বাচন করুন*</label>
+          <select required class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 font-bold text-blue-600">
+            <option value="">দোকান বেছে নিন</option>
+            <option value="A-102">শপ #A-102 (তানভীর আহমেদ - ভিক্টোরি স্পোর্টস)</option>
+            <option value="B-201">শপ #B-201 (মাহবুবুর রহমান - ক্রিকেট পয়েন্ট)</option>
+            <option value="C-305">শপ #C-305 (জসিম উদ্দিন - মেডেল অ্যান্ড ট্রফি)</option>
+            <option value="D-112">শপ #D-112 (তন্ময় স্পোর্টস)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">পূর্বের বিদ্যুৎ মিটার রিডিং (Unit)</label>
+            <input type="number" value="1420" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">বর্তমান বিদ্যুৎ রিডিং (Unit)*</label>
+            <input type="number" value="1545" required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">মোট বিদ্যুৎ বিল (৳)*</label>
+            <input type="number" value="1500" required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-emerald-600">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">পানি ও পয়ঃনিষ্কাশন চার্জ (৳)</label>
+            <input type="number" value="500" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">মার্কেট পরিষ্কার ও পরিচ্ছন্নতা চার্জ (৳)</label>
+          <input type="number" value="500" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('utilityBillModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">বিল যোগ করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Collect Payment Modal -->
+  <div id="collectPaymentModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('collectPaymentModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 modal-content z-10">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">ভাড়া ও বিল আদায় (Receive Payment)</h3>
+          <p class="text-xs text-slate-500">দোকান নং: <span id="payShopNo" class="font-bold text-blue-600">A-102</span> (<span id="payTenantName">তানভীর আহমেদ</span>)</p>
+        </div>
+        <button onclick="closeModal('collectPaymentModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); handleCollectPaymentSubmit();" class="mt-4 space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">আদায়কৃত টাকার পরিমাণ (৳)*</label>
+          <input type="number" id="payAmountInput" required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-extrabold text-emerald-600 text-base focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">পেমেন্ট মাধ্যম*</label>
+            <select id="payMethodSelect" required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-semibold">
+              <option value="Cash">ক্যাশ / নগদ জমা</option>
+              <option value="bKash">বিকাশ (bKash)</option>
+              <option value="Nagad">নগদ (Nagad)</option>
+              <option value="Bank">ব্যাংক ট্রান্সফার / চেক</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ট্রানজেকশন আইডি / চেক নং</label>
+            <input type="text" id="payTrxId" placeholder="যেমন: 9H7B6K" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">আদায়ের তারিখ</label>
+          <input type="date" value="2026-11-18" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-medium">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">মন্তব্য / নোট</label>
+          <input type="text" placeholder="নভেম্বর মাসের ভাড়া পূর্ণাঙ্গ পরিশোধ" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+        </div>
+
+        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-between">
+          <span class="text-emerald-800 font-semibold"><i class="fa-solid fa-receipt mr-1"></i>আদায়ের সাথে সাথে মানি রিসিট প্রস্তুত হবে</span>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('collectPaymentModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-md shadow-emerald-500/20">জমা সম্পন্ন করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Printable Modern Money Receipt Modal -->
+  <div id="receiptModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/70 modal-backdrop" onclick="closeModal('receiptModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full p-8 modal-content z-10 max-h-[95vh] overflow-y-auto printable-area">
+      
+      <!-- Top Action bar (Hidden on print) -->
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 no-print">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">অফিসিয়াল মানি রিসিট প্রিভিউ</span>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-md shadow-blue-500/20">
+            <i class="fa-solid fa-print"></i> প্রিন্ট করুন
+          </button>
+          <button onclick="closeModal('receiptModal')" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Receipt Voucher Content -->
+      <div class="border-2 border-slate-800 rounded-xl p-6 bg-white text-slate-800 space-y-4">
+        
+        <!-- Header -->
+        <div class="text-center pb-4 border-b-2 border-slate-800">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-900 text-white text-2xl mb-2">
+            <i class="fa-solid fa-building-shield"></i>
+          </div>
+          <h2 class="text-lg font-black tracking-tight">জাতীয় স্টেডিয়াম মার্কেট কর্তৃপক্ষ</h2>
+          <p class="text-xs font-semibold text-slate-600">এস্টেট ও রাজস্ব শাখা, ঢাকা</p>
+          <span class="inline-block px-3 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[11px] font-bold mt-1.5 border border-slate-300 uppercase">ভাড়া ও ইউটিলিটি আদায়ের মানি রিসিট</span>
+        </div>
+
+        <!-- Receipt Meta -->
+        <div class="grid grid-cols-2 text-xs py-1 gap-2">
+          <div>
+            <p><span class="text-slate-500">রিসিট নং:</span> <strong id="recNumber" class="font-mono text-blue-600">REC-2026-1108</strong></p>
+            <p><span class="text-slate-500">ইনভয়েস রেফারেন্স:</span> <strong id="recInvoice">INV-2026-11-001</strong></p>
+          </div>
+          <div class="text-right">
+            <p><span class="text-slate-500">তারিখ:</span> <strong id="recDate">১৮ নভেম্বর ২০২৬</strong></p>
+            <p><span class="text-slate-500">পরিশোধের মাস:</span> <strong id="recMonth">নভেম্বর ২০২৬</strong></p>
+          </div>
+        </div>
+
+        <!-- Tenant Info Box -->
+        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <p class="text-slate-500 text-[11px]">ভাড়াটিয়ার নাম:</p>
+              <p id="recTenant" class="font-bold text-slate-900 text-sm">তানভীর আহমেদ</p>
+              <p id="recBusiness" class="text-slate-600">ভিক্টোরি স্পোর্টস গ্যালারি</p>
+            </div>
+            <div class="text-right">
+              <p class="text-slate-500 text-[11px]">দোকানের বিবরণ:</p>
+              <p id="recShop" class="font-bold text-slate-900 text-sm">শপ #A-102</p>
+              <p class="text-slate-600">ব্লক A, গ্রাউন্ড ফ্লোর</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <table class="w-full text-xs text-left border border-slate-300">
+          <thead class="bg-slate-100 border-b border-slate-300 font-bold text-slate-700">
+            <tr>
+              <th class="p-2 border-r border-slate-300">ক্রম</th>
+              <th class="p-2 border-r border-slate-300">বিবরণ (Particulars)</th>
+              <th class="p-2 text-right">টাকা (BDT)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="p-2 border-r border-slate-200 text-center font-mono">১</td>
+              <td class="p-2 border-r border-slate-200">মাসিক দোকান ভাড়া (Shop Base Rent)</td>
+              <td class="p-2 text-right font-mono font-bold" id="recBaseRent">৳১৮,০০০</td>
+            </tr>
+            <tr>
+              <td class="p-2 border-r border-slate-200 text-center font-mono">২</td>
+              <td class="p-2 border-r border-slate-200">বিদ্যুৎ বিল চার্জ (Electricity Bill)</td>
+              <td class="p-2 text-right font-mono" id="recElecRent">৳১,৫০০</td>
+            </tr>
+            <tr>
+              <td class="p-2 border-r border-slate-200 text-center font-mono">৩</td>
+              <td class="p-2 border-r border-slate-200">পানি ও পরিচ্ছন্নতা সার্ভিস চার্জ (Service & Water)</td>
+              <td class="p-2 text-right font-mono" id="recServiceRent">৳১,০০০</td>
+            </tr>
+            <tr class="bg-slate-50 font-bold border-t-2 border-slate-800">
+              <td colspan="2" class="p-2 text-right border-r border-slate-300">সর্বমোট প্রদেয়:</td>
+              <td class="p-2 text-right font-mono text-sm" id="recTotal">৳২০,৫০০</td>
+            </tr>
+            <tr class="bg-emerald-50 text-emerald-800 font-extrabold">
+              <td colspan="2" class="p-2 text-right border-r border-emerald-200">আদায়কৃত নগদ / পরিশোধিত:</td>
+              <td class="p-2 text-right font-mono text-base" id="recPaid">৳২০,৫০০</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Payment Mode & In Words -->
+        <div class="text-xs pt-1 space-y-1">
+          <p><span class="text-slate-500">পেমেন্ট মাধ্যম:</span> <strong id="recMethod">বিকাশ (Trx: 9H7B6K)</strong></p>
+          <p><span class="text-slate-500">কথায়:</span> <em class="font-semibold text-slate-800">বিশ হাজার পাঁচশত টাকা মাত্র</em></p>
+        </div>
+
+        <!-- Signatures & Seal -->
+        <div class="pt-8 grid grid-cols-2 text-xs">
+          <div>
+            <div class="w-32 border-b border-slate-400"></div>
+            <p class="text-[11px] text-slate-500 mt-1">ভাড়াটিয়ার স্বাক্ষর</p>
+          </div>
+          <div class="text-right flex flex-col items-end">
+            <div class="w-36 border-b border-slate-400"></div>
+            <p class="text-[11px] font-bold text-slate-800 mt-1">অনুমোদিত রাজস্ব কর্মকর্তা</p>
+            <p class="text-[10px] text-slate-500">স্টেডিয়াম মার্কেট এস্টেট শাখা</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Scripts -->
+  <script src="assets/js/common.js"></script>
+  <script>
+    function openCollectPaymentModal(shopNo, tenant, dueAmount) {
+      document.getElementById('payShopNo').innerText = shopNo;
+      document.getElementById('payTenantName').innerText = tenant;
+      document.getElementById('payAmountInput').value = dueAmount;
+      openModal('collectPaymentModal');
+    }
+
+    function handleCollectPaymentSubmit() {
+      const shop = document.getElementById('payShopNo').innerText;
+      const amount = document.getElementById('payAmountInput').value;
+      closeModal('collectPaymentModal');
+      showToast(`${shop} এর ৳${amount} টাকা সফলভাবে জমা হয়েছে এবং রিসিট তৈরি হয়েছে!`, 'success');
+    }
+
+    function handleGenerateBatch() {
+      closeModal('batchInvoiceModal');
+      showToast('৮২টি সক্রিয় দোকানের জন্য নভেম্বর মাসের ইনভয়েস সফলভাবে জেনারেট হয়েছে!', 'success');
+    }
+
+    function printMoneyReceipt(inv, shop, tenant, business, month, base, elec, serv, total, paid, method, date) {
+      document.getElementById('recInvoice').innerText = inv;
+      document.getElementById('recNumber').innerText = 'REC-' + inv.replace('INV-', '');
+      document.getElementById('recShop').innerText = shop;
+      document.getElementById('recTenant').innerText = tenant;
+      document.getElementById('recBusiness').innerText = business;
+      document.getElementById('recMonth').innerText = month;
+      document.getElementById('recBaseRent').innerText = '৳' + base.toLocaleString('en-IN');
+      document.getElementById('recElecRent').innerText = '৳' + elec.toLocaleString('en-IN');
+      document.getElementById('recServiceRent').innerText = '৳' + serv.toLocaleString('en-IN');
+      document.getElementById('recTotal').innerText = '৳' + total.toLocaleString('en-IN');
+      document.getElementById('recPaid').innerText = '৳' + paid.toLocaleString('en-IN');
+      document.getElementById('recMethod').innerText = method;
+      document.getElementById('recDate').innerText = date;
+      openModal('receiptModal');
+    }
+
+    function filterPaymentStatus(val) {
+      const rows = document.querySelectorAll('#billingTableBody tr');
+      rows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        if (val === 'all' || status === val) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

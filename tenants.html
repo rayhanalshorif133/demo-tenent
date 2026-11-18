@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ভাড়াটিয়া প্রোফাইল ও কেওয়াইসি (Tenant Directory) | স্টেডিয়াম মার্কেট</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-xl">
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/50">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <i class="fa-solid fa-shop text-lg"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-base leading-tight">স্টেডিয়াম মার্কেট</h1>
+        <p class="text-[11px] text-blue-400 font-medium">শপ ও টেন্যান্ট পোর্টাল</p>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+      <div class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">মেনু ও অপশনস</div>
+      
+      <!-- 1. Live Dashboard -->
+      <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>লাইভ ড্যাশবোর্ড</span>
+      </a>
+
+      <!-- 2. Shop Management -->
+      <a href="shops.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-store w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>দোকান ব্যবস্থাপনা</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">১০০টি</span>
+      </a>
+
+      <!-- 3. Tenant Management (Active) -->
+      <a href="tenants.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-md shadow-blue-600/30">
+        <i class="fa-solid fa-users w-5 text-center text-blue-200"></i>
+        <span>ভাড়াটিয়া প্রোফাইল</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-800 text-blue-200">৮২ জন</span>
+      </a>
+
+      <!-- 4. Billing & Collection -->
+      <a href="billing.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়া ও বিলিং</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-900/60 text-amber-300">বকেয়া</span>
+      </a>
+
+      <!-- 5. Agreement & Lease -->
+      <a href="leases.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-contract w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>চুক্তি ও মেয়াদ</span>
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-900/70 text-rose-300">৪ শেষ</span>
+      </a>
+
+      <!-- 6. Notice & Maintenance -->
+      <a href="notices-maintenance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>নোটিশ ও অভিযোগ</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৩টি</span>
+      </a>
+
+      <!-- 7. Reports -->
+      <a href="reports.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-line w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>রিপোর্টস ও এনালাইসিস</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-3 m-3 rounded-xl bg-slate-800/80 border border-slate-700/60">
+      <div class="flex items-center justify-between text-xs mb-1.5">
+        <span class="text-slate-300 font-medium">কেওয়াইসি ভেরিফিকেশন</span>
+        <span class="text-emerald-400 font-bold">৯২% সম্পন্ন</span>
+      </div>
+      <div class="text-[11px] text-slate-400">৭৬ জন সম্পূর্ণ ভেরিফাইড</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-30">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">ভাড়াটিয়া ডিরেক্টরি ও প্রোফাইল</h2>
+          <p class="text-xs text-slate-500 hidden sm:block">ভাড়াটিয়াদের এনআইডি, ট্রেড লাইসেন্স, গ্যারান্টর ও বরাদ্দের পূর্ব ইতিহাস</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openModal('addTenantModal')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-md shadow-blue-500/20 transition">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>নতুন ভাড়াটিয়া এন্ট্রি</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- Top KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500">মোট সক্রিয় ভাড়াটিয়া</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">৮২ জন</p>
+            <span class="text-[11px] text-blue-600 font-semibold">১০০টি দোকানের মধ্যে</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-id-card-clip"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-emerald-600">KYC ভেরিফাইড</p>
+            <p class="text-2xl font-black text-emerald-600 mt-1">৭৬ জন</p>
+            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-semibold">এনআইডি ও ট্রেড লাইসেন্স ওকে</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-shield-check"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-amber-600">KYC পেন্ডিং</p>
+            <p class="text-2xl font-black text-amber-600 mt-1">৬ জন</p>
+            <span class="text-[11px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-semibold">ডকুমেন্ট আপলোড বাকি</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500">সংগৃহীত জামানত</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">৳৪৫.৬ লাখ</p>
+            <span class="text-[11px] text-slate-500">গড় ৳৫০,০০০+ / দোকান</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-vault"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="relative flex-1 max-w-md">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="tenantSearchInput" onkeyup="filterTable('tenantSearchInput', 'tenantTable')" placeholder="ভাড়াটিয়ার নাম, দোকান নং, ফোন বা NID দিয়ে খুঁজুন..." class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition">
+        </div>
+
+        <div class="flex items-center gap-2">
+          <select id="kycFilter" onchange="filterTenantKYC(this.value)" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs sm:text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
+            <option value="all">সকল ভাড়াটিয়া (৮২ জন)</option>
+            <option value="verified">KYC ভেরিফাইড (৭৬)</option>
+            <option value="pending">KYC পেন্ডিং (৬)</option>
+          </select>
+          <button onclick="showToast('ভাড়াটিয়াদের এক্সেল শিট ডাউনলোড হচ্ছে...', 'info')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+            <i class="fa-solid fa-file-export mr-1"></i> এক্সপোর্ট
+          </button>
+        </div>
+      </div>
+
+      <!-- Tenants Directory Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table id="tenantTable" class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4">ভাড়াটিয়ার বিবরণ</th>
+                <th class="py-3.5 px-4">বরাদ্দকৃত দোকান</th>
+                <th class="py-3.5 px-4">কন্ট্যাক্ট ডিটেইলস</th>
+                <th class="py-3.5 px-4">ট্রেড লাইসেন্স নং</th>
+                <th class="py-3.5 px-4">এনআইডি (NID)</th>
+                <th class="py-3.5 px-4">KYC স্ট্যাটাস</th>
+                <th class="py-3.5 px-4">জামানত (ডিপোজিট)</th>
+                <th class="py-3.5 px-4 text-right">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="tenantTableBody" class="divide-y divide-slate-100">
+              <!-- Tenant 1 -->
+              <tr class="hover:bg-slate-50/80 transition" data-kyc="verified">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover ring-2 ring-slate-200">
+                    <div>
+                      <p class="font-bold text-slate-800 text-xs">তানভীর আহমেদ</p>
+                      <p class="text-[11px] text-blue-600 font-medium">ভিক্টোরি স্পোর্টস গ্যালারি</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #A-102</span>
+                  <div class="text-[10px] text-slate-500">ব্লক A • ২৪০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium"><i class="fa-solid fa-phone text-slate-400 mr-1"></i>০১৭১২-৩৪৫৬৭৮</div>
+                  <div class="text-[10px] text-slate-400">tanvir.victory@gmail.com</div>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">TR-DCC-2024-8812</td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">১৯৮৫২৬৯১৪৫১২০</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-check-circle text-[10px]"></i> ভেরিফাইড
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳১,৫০,০০০</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openKYCModal('তানভীর আহমেদ', 'ভিক্টোরি স্পোর্টস', 'শপ #A-102', '১৯৮৫২৬৯১৪৫১২০', 'TR-DCC-2024-8812', 'মোস্তফা কামাল (চাচা) - 01819-334455')" class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="ডকুমেন্টস ও KYC">
+                      <i class="fa-solid fa-id-card mr-1"></i> KYC
+                    </button>
+                    <button onclick="openAllocationHistory('শপ #A-102', 'তানভীর আহমেদ', '০১ জানু ২০২৩')" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition" title="বরাদ্দ ইতিহাস">
+                      <i class="fa-solid fa-timeline mr-1"></i> ইতিহাস
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Tenant 2 -->
+              <tr class="hover:bg-slate-50/80 transition" data-kyc="verified">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover ring-2 ring-slate-200">
+                    <div>
+                      <p class="font-bold text-slate-800 text-xs">মাহবুবুর রহমান</p>
+                      <p class="text-[11px] text-blue-600 font-medium">ক্রিকেট পয়েন্ট বিডি</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #B-201</span>
+                  <div class="text-[10px] text-slate-500">ব্লক B • ৩১০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium"><i class="fa-solid fa-phone text-slate-400 mr-1"></i>০১৮১৯-৭৬৫৪৩২</div>
+                  <div class="text-[10px] text-slate-400">cricketpoint@bd.com</div>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">TR-DCC-2023-4190</td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">১৯৮৮২৬১১৮৯৭৬৩</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-check-circle text-[10px]"></i> ভেরিফাইড
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳১,৮০,০০০</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openKYCModal('মাহবুবুর রহমান', 'ক্রিকেট পয়েন্ট বিডি', 'শপ #B-201', '১৯৮৮২৬১১৮৯৭৬৩', 'TR-DCC-2023-4190', 'হারুনুর রশিদ (ভাই) - 01711-998877')" class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition">
+                      <i class="fa-solid fa-id-card mr-1"></i> KYC
+                    </button>
+                    <button onclick="openAllocationHistory('শপ #B-201', 'মাহবুবুর রহমান', '১৫ মার্চ ২০২২')" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition">
+                      <i class="fa-solid fa-timeline mr-1"></i> ইতিহাস
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Tenant 3 (Pending KYC) -->
+              <tr class="hover:bg-slate-50/80 transition" data-kyc="pending">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs ring-2 ring-amber-200">
+                      জা
+                    </div>
+                    <div>
+                      <p class="font-bold text-slate-800 text-xs">জসিম উদ্দিন</p>
+                      <p class="text-[11px] text-blue-600 font-medium">মেডেল ও ট্রফি মার্ট</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #C-305</span>
+                  <div class="text-[10px] text-slate-500">ব্লক C • ১৮০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium"><i class="fa-solid fa-phone text-slate-400 mr-1"></i>০১৬১১-৫৫৪৪৩৩</div>
+                  <div class="text-[10px] text-slate-400">jasim.trophy@gmail.com</div>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-amber-600 font-semibold">পেন্ডিং (দায়েরকৃত)</td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">১৯৯১১২৩৪৮৭৯০১</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-circle-exclamation text-[10px]"></i> পেন্ডিং
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳১,২০,০০০</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openKYCModal('জসিম উদ্দিন', 'মেডেল ও ট্রফি মার্ট', 'শপ #C-305', '১৯৯১১২৩৪৮৭৯০১', 'জমা দেওয়া হয়নি', 'বাপ্পি আহমেদ (বন্ধুর সুপারিশ) - 01912-332211')" class="px-2.5 py-1 text-xs font-semibold bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg transition">
+                      <i class="fa-solid fa-id-card mr-1"></i> KYC
+                    </button>
+                    <button onclick="openAllocationHistory('শপ #C-305', 'জসিম উদ্দিন', '০১ আগস্ট ২০২৩')" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition">
+                      <i class="fa-solid fa-timeline mr-1"></i> ইতিহাস
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Tenant 4 -->
+              <tr class="hover:bg-slate-50/80 transition" data-kyc="verified">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover ring-2 ring-slate-200">
+                    <div>
+                      <p class="font-bold text-slate-800 text-xs">মো: রফিকুল ইসলাম</p>
+                      <p class="text-[11px] text-blue-600 font-medium">রফিক স্পোর্টস ফ্যাশন</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #A-105</span>
+                  <div class="text-[10px] text-slate-500">ব্লক A • ২৮০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium"><i class="fa-solid fa-phone text-slate-400 mr-1"></i>০১৭১৫-৭৮৯০১২</div>
+                  <div class="text-[10px] text-slate-400">rafiq.fashion@yahoo.com</div>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">TR-DCC-2022-7731</td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">১৯৭৮২৬৫১২৮৯০২</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-check-circle text-[10px]"></i> ভেরিফাইড
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২,০০,০০০</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openKYCModal('মো: রফিকুল ইসলাম', 'রফিক স্পোর্টস ফ্যাশন', 'শপ #A-105', '১৯৭৮২৬৫১২৮৯০২', 'TR-DCC-2022-7731', 'মজিবুর রহমান (ব্যবসায়িক অংশীদার)')" class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition">
+                      <i class="fa-solid fa-id-card mr-1"></i> KYC
+                    </button>
+                    <button onclick="openAllocationHistory('শপ #A-105', 'মো: রফিকুল ইসলাম', '১০ জানু ২০২২')" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition">
+                      <i class="fa-solid fa-timeline mr-1"></i> ইতিহাস
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Tenant 5 -->
+              <tr class="hover:bg-slate-50/80 transition" data-kyc="verified">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover ring-2 ring-slate-200">
+                    <div>
+                      <p class="font-bold text-slate-800 text-xs">আশরাফুল হক</p>
+                      <p class="text-[11px] text-blue-600 font-medium">ঢাকা সাইকেল অ্যান্ড ফিটনেস</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #D-401</span>
+                  <div class="text-[10px] text-slate-500">ব্লক D • ৩৫০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium"><i class="fa-solid fa-phone text-slate-400 mr-1"></i>০১৯১১-২২৩৩৪৪</div>
+                  <div class="text-[10px] text-slate-400">ashraf.cycles@gmail.com</div>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">TR-DCC-2024-1029</td>
+                <td class="py-3.5 px-4 font-mono text-slate-600">১৯৮৩২৬৭৮৯০১১২</td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-check-circle text-[10px]"></i> ভেরিফাইড
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-slate-800">৳২,৫০,০০০</td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openKYCModal('আশরাফুল হক', 'ঢাকা সাইকেল অ্যান্ড ফিটনেস', 'শপ #D-401', '১৯৮৩২৬৭৮৯০১১২', 'TR-DCC-2024-1029', 'মোখলেসুর রহমান (শশুর) - 01817-445566')" class="px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition">
+                      <i class="fa-solid fa-id-card mr-1"></i> KYC
+                    </button>
+                    <button onclick="openAllocationHistory('শপ #D-401', 'আশরাফুল হক', '০১ জুলাই ২০২১')" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg transition">
+                      <i class="fa-solid fa-timeline mr-1"></i> ইতিহাস
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: KYC & Documents Viewer/Upload Modal -->
+  <div id="kycModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('kycModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <div>
+              <h3 id="kycTenantName" class="text-base font-bold text-slate-800">তানভীর আহমেদ</h3>
+              <p id="kycShopBusiness" class="text-xs text-blue-600 font-semibold">ভিক্টোরি স্পোর্টস • শপ #A-102</p>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeModal('kycModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex border-b border-slate-200 mt-4 text-xs font-semibold">
+        <button class="px-4 py-2 text-blue-600 border-b-2 border-blue-600">জাতীয় পরিচয়পত্র (NID)</button>
+        <button class="px-4 py-2 text-slate-500 hover:text-slate-800">ট্রেড লাইসেন্স</button>
+        <button class="px-4 py-2 text-slate-500 hover:text-slate-800">গ্যারান্টরের তথ্য</button>
+        <button class="px-4 py-2 text-slate-500 hover:text-slate-800">+ ফাইল আপলোড</button>
+      </div>
+
+      <!-- Document Content Body -->
+      <div class="py-4 space-y-4 text-xs">
+        <!-- NID Card Preview Section -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-slate-700">জাতীয় পরিচয়পত্র নম্বর (Smart NID):</span>
+            <span id="kycNidNumber" class="font-mono text-sm font-bold text-slate-900">১৯৮৫২৬৯১৪৫১২০</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+            <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center bg-white flex flex-col items-center justify-center h-32">
+              <i class="fa-solid fa-id-card text-3xl text-blue-500 mb-1"></i>
+              <span class="font-semibold text-slate-700">NID সামনের পাতা</span>
+              <span class="text-[10px] text-emerald-600 font-bold mt-1"><i class="fa-solid fa-check mr-1"></i>ভেরিফাইড ও সংরক্ষিত</span>
+            </div>
+            <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center bg-white flex flex-col items-center justify-center h-32">
+              <i class="fa-solid fa-id-card text-3xl text-slate-400 mb-1"></i>
+              <span class="font-semibold text-slate-700">NID পেছনের পাতা</span>
+              <span class="text-[10px] text-emerald-600 font-bold mt-1"><i class="fa-solid fa-check mr-1"></i>ভেরিফাইড ও সংরক্ষিত</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trade License -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-slate-700">ট্রেড লাইসেন্স নম্বর:</span>
+            <span id="kycTradeNumber" class="font-mono font-bold text-slate-800">TR-DCC-2024-8812</span>
+          </div>
+          <p class="text-slate-500 text-[11px]">ইস্যুকারী কর্তৃপক্ষ: ঢাকা দক্ষিণ সিটি কর্পোরেশন • মেয়াদ: ৩০ জুন ২০২৭</p>
+        </div>
+
+        <!-- Guarantor Section -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <span class="font-bold text-slate-700 block mb-1">নির্ধারিত গ্যারান্টরের তথ্য (Guarantor Details):</span>
+          <p id="kycGuarantorText" class="text-slate-800 font-medium">মোস্তফা কামাল (চাচা) - ০১৮১৯-৩৩৪৪৫৫ • এনআইডি নং: ১৯৬৮২৬১৯৮২৪৫</p>
+        </div>
+
+        <!-- Upload New/Updated Document Dropzone -->
+        <div class="border-2 border-dashed border-blue-300 bg-blue-50/50 rounded-xl p-4 text-center">
+          <i class="fa-solid fa-cloud-arrow-up text-2xl text-blue-600 mb-1"></i>
+          <p class="font-bold text-slate-700">নতুন স্ক্যান কপি বা ডকুমেন্ট এখানে ড্রপ করুন</p>
+          <p class="text-[10px] text-slate-500">PDF, JPG, PNG ফাইল সর্বোচ্চ ৫ MB</p>
+          <button type="button" onclick="showToast('ডকুমেন্ট ফাইল সিলেক্টর খোলা হচ্ছে...', 'info')" class="mt-2 px-3 py-1 bg-white border border-slate-300 rounded-lg text-slate-700 font-bold text-xs shadow-sm hover:bg-slate-50">ফাইল নির্বাচন করুন</button>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-xs text-emerald-600 font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>কেওয়াইসি স্ট্যাটাস: অনুমোদিত</span>
+        <div class="flex gap-2">
+          <button type="button" onclick="closeModal('kycModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold text-xs">বন্ধ করুন</button>
+          <button type="button" onclick="showToast('ডকুমেন্টস সফলভাবে সেভ হয়েছে', 'success'); closeModal('kycModal');" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-md shadow-blue-500/20">সংরক্ষণ করুন</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Allocation History (দোকান বরাদ্দ ও পূর্ববর্তী ভাড়াটিয়াদের রেকর্ড) -->
+  <div id="allocationHistoryModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('allocationHistoryModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-timeline"></i>
+            </span>
+            <div>
+              <h3 class="text-base font-bold text-slate-800">দোকান বরাদ্দ ইতিহাস (Allocation History)</h3>
+              <p class="text-xs text-slate-500">দোকান নং: <span id="historyShopNo" class="font-bold text-blue-600">শপ #A-102</span></p>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeModal('allocationHistoryModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Timeline -->
+      <div class="py-6 space-y-6 text-xs relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-slate-200">
+        
+        <!-- Current Tenant -->
+        <div class="relative flex items-start gap-4">
+          <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold ring-4 ring-white shrink-0 z-10">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <div class="bg-emerald-50/70 border border-emerald-200 p-3.5 rounded-xl flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-xs" id="historyCurrentTenant">তানভীর আহমেদ (ভিক্টোরি স্পোর্টস)</span>
+              <span class="px-2 py-0.5 bg-emerald-600 text-white font-bold text-[10px] rounded-full">বর্তমান ভাড়াটিয়া</span>
+            </div>
+            <p class="text-[11px] text-slate-600 mt-1">চুক্তির মেয়াদ: ০১ জানুয়ারি ২০২৩ থেকে ৩১ ডিসেম্বর ২০২৬ (চলমান)</p>
+            <p class="text-[11px] text-slate-500">মাসিক ভাড়া: ৳১৮,৫০০ • জামানত: ৳১,৫০,০০০</p>
+          </div>
+        </div>
+
+        <!-- Previous Tenant -->
+        <div class="relative flex items-start gap-4">
+          <div class="w-7 h-7 rounded-full bg-slate-400 text-white flex items-center justify-center text-xs font-bold ring-4 ring-white shrink-0 z-10">
+            ২
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-xs">মো: শফিকুল ইসলাম (মিলেনিয়াম স্পোর্টস)</span>
+              <span class="text-[10px] text-slate-500 font-semibold">পূর্ববর্তী ভাড়াটিয়া</span>
+            </div>
+            <p class="text-[11px] text-slate-600 mt-1">সময়কাল: ০১ জানুয়ারি ২০২১ থেকে ৩১ ডিসেম্বর ২০২২ (২ বছর)</p>
+            <p class="text-[11px] text-slate-500">অবস্থা: মেয়াদ শেষে সম্মতিক্রমে দোকান হস্তান্তর ও সম্পূর্ণ জামানত ফেরত সম্পন্ন।</p>
+          </div>
+        </div>
+
+        <!-- Initial Tenant -->
+        <div class="relative flex items-start gap-4">
+          <div class="w-7 h-7 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs font-bold ring-4 ring-white shrink-0 z-10">
+            ১
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800 text-xs">আনোয়ার ট্রেডার্স (মো: আনোয়ার হোসেন)</span>
+              <span class="text-[10px] text-slate-500 font-semibold">প্রথম বরাদ্দ</span>
+            </div>
+            <p class="text-[11px] text-slate-600 mt-1">সময়কাল: ১৫ মার্চ ২০১৮ থেকে ৩১ ডিসেম্বর ২০২০ (২ বছর ৯ মাস)</p>
+            <p class="text-[11px] text-slate-500">অবস্থা: ব্যবসায়িক স্থান পরিবর্তনের কারণে চুক্তি সমাপ্ত। কোনো বকেয়া ছিল না।</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 text-right">
+        <button type="button" onclick="closeModal('allocationHistoryModal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs">ঠিক আছে</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Add New Tenant Modal -->
+  <div id="addTenantModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('addTenantModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">নতুন ভাড়াটিয়া নিবন্ধন ও দোকান বরাদ্দ</h3>
+          <p class="text-xs text-slate-500">ভাড়াটিয়ার প্রোফাইল তৈরি ও খালি দোকানে বরাদ্দকরণ</p>
+        </div>
+        <button onclick="closeModal('addTenantModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal('addTenantModal'); showToast('নতুন ভাড়াটিয়া সফলভাবে যুক্ত হয়েছে!', 'success');" class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ভাড়াটিয়ার পুরো নাম*</label>
+            <input type="text" required placeholder="যেমন: মো: কামাল হোসেন" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ব্যবসা প্রতিষ্ঠানের নাম*</label>
+            <input type="text" required placeholder="যেমন: কামাল এন্টারপ্রাইজ" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">মোবাইল নম্বর*</label>
+            <input type="tel" required placeholder="০১৭১২-XXXXXX" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ইমেইল ঠিকানা</label>
+            <input type="email" placeholder="example@gmail.com" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">এনআইডি নম্বর (Smart NID)*</label>
+            <input type="text" required placeholder="১০ বা ১৭ ডিজিটের এনআইডি" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ট্রেড লাইসেন্স নম্বর</label>
+            <input type="text" placeholder="TR-XXXX-XXXX" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">বরাদ্দকৃত খালি দোকান*</label>
+            <select required class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 font-bold text-blue-600">
+              <option value="">খালি দোকান নির্বাচন করুন</option>
+              <option value="A-107">শপ #A-107 (ব্লক A, ১৮০ sqft, ৳১৫,০০০)</option>
+              <option value="A-114">শপ #A-114 (ব্লক A, ২৫০ sqft, ৳১৯,০০০)</option>
+              <option value="B-208">শপ #B-208 (ব্লক B, ৩২০ sqft, ৳২২,০০০)</option>
+              <option value="C-312">শপ #C-312 (ব্লক C, ২০০ sqft, ৳১৬,৫০০)</option>
+              <option value="D-410">শপ #D-410 (ব্লক D, ৩০০ sqft, ৳২৪,০০০)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">সিকিউরিটি জামানতের পরিমাণ (৳)*</label>
+            <input type="number" required placeholder="যেমন: 150000" class="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 font-bold">
+          </div>
+        </div>
+
+        <!-- Guarantor -->
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <p class="font-bold text-slate-800">গ্যারান্টরের তথ্য (Guarantor Info)</p>
+          <div class="grid grid-cols-2 gap-3">
+            <input type="text" placeholder="গ্যারান্টরের নাম" class="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white">
+            <input type="tel" placeholder="গ্যারান্টরের মোবাইল" class="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white">
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('addTenantModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">ভাড়াটিয়া সংরক্ষণ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Scripts -->
+  <script src="assets/js/common.js"></script>
+  <script>
+    function openKYCModal(name, business, shop, nid, trade, guarantor) {
+      document.getElementById('kycTenantName').innerText = name;
+      document.getElementById('kycShopBusiness').innerText = `${business} • ${shop}`;
+      document.getElementById('kycNidNumber').innerText = nid;
+      document.getElementById('kycTradeNumber').innerText = trade;
+      document.getElementById('kycGuarantorText').innerText = guarantor;
+      openModal('kycModal');
+    }
+
+    function openAllocationHistory(shopNo, currentTenant, startDate) {
+      document.getElementById('historyShopNo').innerText = shopNo;
+      document.getElementById('historyCurrentTenant').innerText = `${currentTenant} (${startDate} থেকে)`;
+      openModal('allocationHistoryModal');
+    }
+
+    function filterTenantKYC(val) {
+      const rows = document.querySelectorAll('#tenantTableBody tr');
+      rows.forEach(row => {
+        const kyc = row.getAttribute('data-kyc');
+        if (val === 'all' || kyc === val) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

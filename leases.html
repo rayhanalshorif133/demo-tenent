@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>চুক্তি ও মেয়াদ ব্যবস্থাপনা (Lease & Expiry Alerts) | স্টেডিয়াম মার্কেট</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-xl">
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/50">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <i class="fa-solid fa-shop text-lg"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-base leading-tight">স্টেডিয়াম মার্কেট</h1>
+        <p class="text-[11px] text-blue-400 font-medium">শপ ও টেন্যান্ট পোর্টাল</p>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+      <div class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">মেনু ও অপশনস</div>
+      
+      <!-- 1. Live Dashboard -->
+      <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>লাইভ ড্যাশবোর্ড</span>
+      </a>
+
+      <!-- 2. Shop Management -->
+      <a href="shops.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-store w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>দোকান ব্যবস্থাপনা</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">১০০টি</span>
+      </a>
+
+      <!-- 3. Tenant Management -->
+      <a href="tenants.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-users w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়াটিয়া প্রোফাইল</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৮২ জন</span>
+      </a>
+
+      <!-- 4. Billing & Collection -->
+      <a href="billing.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়া ও বিলিং</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-900/60 text-amber-300">বকেয়া</span>
+      </a>
+
+      <!-- 5. Agreement & Lease (Active) -->
+      <a href="leases.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-md shadow-blue-600/30">
+        <i class="fa-solid fa-file-contract w-5 text-center text-blue-200"></i>
+        <span>চুক্তি ও মেয়াদ</span>
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-800 text-rose-200 animate-pulse">৪ শেষ</span>
+      </a>
+
+      <!-- 6. Notice & Maintenance -->
+      <a href="notices-maintenance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>নোটিশ ও অভিযোগ</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৩টি</span>
+      </a>
+
+      <!-- 7. Reports -->
+      <a href="reports.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-line w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>রিপোর্টস ও এনালাইসিস</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-3 m-3 rounded-xl bg-slate-800/80 border border-slate-700/60">
+      <div class="flex items-center justify-between text-xs mb-1.5">
+        <span class="text-slate-300 font-medium">মেয়াদোত্তীর্ণের অ্যালার্ট</span>
+        <span class="text-rose-400 font-bold">১৩টি আসন্ন</span>
+      </div>
+      <div class="text-[11px] text-slate-400">১৫ দিনে ৪টি • ৩০ দিনে ৯টি</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-30">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">চুক্তি ও মেয়াদোত্তীর্ণের ট্র্যাকিং (Lease Management)</h2>
+          <p class="text-xs text-slate-500 hidden sm:block">সিকিউরিটি ডিপোজিট ও ১৫/৩০ দিনের আগাম মেয়াদোত্তীর্ণ সতর্কতা</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openModal('newLeaseModal')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-md shadow-blue-500/20 transition">
+          <i class="fa-solid fa-plus"></i>
+          <span>নতুন চুক্তি নিবন্ধন</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- Alert & Summary Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <!-- 15 Days Expiry Alert -->
+        <div class="bg-rose-50 border border-rose-200/80 p-4 sm:p-5 rounded-2xl shadow-sm flex items-center justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-xs font-bold text-rose-700 uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span> ১৫ দিনে মেয়াদ শেষ
+            </div>
+            <p class="text-2xl font-black text-rose-700 mt-1">৪টি চুক্তি</p>
+            <p class="text-[11px] text-rose-600 mt-0.5">তাৎক্ষণিক নবায়ন নোটিশ প্রয়োজন</p>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center text-lg shadow-md shadow-rose-600/30">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+        </div>
+
+        <!-- 30 Days Expiry Alert -->
+        <div class="bg-amber-50 border border-amber-200/80 p-4 sm:p-5 rounded-2xl shadow-sm flex items-center justify-between">
+          <div>
+            <div class="text-xs font-bold text-amber-700 uppercase tracking-wider">৩০ দিনে মেয়াদ শেষ</div>
+            <p class="text-2xl font-black text-amber-700 mt-1">৯টি চুক্তি</p>
+            <p class="text-[11px] text-amber-600 mt-0.5">আগাম রিমাইন্ডার পাঠানো শুরু</p>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-md shadow-amber-500/30">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+        </div>
+
+        <!-- Active Leases -->
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500">মোট সক্রিয় চুক্তি</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">৮২টি</p>
+            <span class="text-[11px] text-emerald-600 font-semibold">১০০% বৈধ চুক্তিপত্র বিদ্যমান</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-file-circle-check"></i>
+          </div>
+        </div>
+
+        <!-- Security Deposit Fund -->
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500">মোট সংরক্ষিত জামানত</p>
+            <p class="text-2xl font-black text-indigo-600 mt-1">৳৪৫,৬০,০০০</p>
+            <span class="text-[11px] text-slate-500">রিফান্ডেবল ট্রাস্ট একাউন্ট</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-vault"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="relative flex-1 max-w-md">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input type="text" id="leaseSearchInput" onkeyup="filterTable('leaseSearchInput', 'leaseTable')" placeholder="চুক্তি নং, দোকান বা ভাড়াটিয়া দিয়ে সার্চ..." class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-500 focus:outline-none transition">
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="showToast('সকল ভাড়াটিয়াকে মেয়াদোত্তীর্ণের অটোমেটিক এসএমএস পাঠানো হয়েছে', 'success')" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>সবাইকে রিমাইন্ডার SMS পাঠান</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+          <span class="text-slate-400 font-medium">মেয়াদ ফিল্টার:</span>
+          <button onclick="filterExpiry('all')" class="lease-pill active bg-blue-600 text-white px-3 py-1 rounded-lg font-medium">সকল চুক্তি (৮২)</button>
+          <button onclick="filterExpiry('15days')" class="lease-pill bg-rose-50 text-rose-700 hover:bg-rose-100 px-3 py-1 rounded-lg font-bold border border-rose-200">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i> ১৫ দিনে মেয়াদ শেষ (৪)
+          </button>
+          <button onclick="filterExpiry('30days')" class="lease-pill bg-amber-50 text-amber-700 hover:bg-amber-100 px-3 py-1 rounded-lg font-bold border border-amber-200">
+            ৩০ দিনে মেয়াদ শেষ (৯)
+          </button>
+          <button onclick="filterExpiry('active')" class="lease-pill bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1 rounded-lg font-medium">
+            দীর্ঘমেয়াদী সক্রিয় (৬৯)
+          </button>
+        </div>
+      </div>
+
+      <!-- Leases Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table id="leaseTable" class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4">চুক্তি রেফারেন্স নং</th>
+                <th class="py-3.5 px-4">দোকান নং ও ব্লক</th>
+                <th class="py-3.5 px-4">ভাড়াটিয়ার বিবরণ</th>
+                <th class="py-3.5 px-4">মেয়াদকাল (শুরু - শেষ)</th>
+                <th class="py-3.5 px-4">অবশিষ্ট দিন (Countdown)</th>
+                <th class="py-3.5 px-4">সিকিউরিটি ডিপোজিট</th>
+                <th class="py-3.5 px-4">মাসিক ভাড়া ও শর্ত</th>
+                <th class="py-3.5 px-4 text-right">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="leaseTableBody" class="divide-y divide-slate-100">
+              
+              <!-- Lease 1: 8 Days remaining (High Alert) -->
+              <tr class="hover:bg-slate-50/80 transition" data-expiry="15days">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">AGR-2023-A105</td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #A-105</span>
+                  <div class="text-[10px] text-slate-500">ব্লক A • ২৮০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">মো: রফিকুল ইসলাম</div>
+                  <div class="text-[11px] text-slate-500">রফিক স্পোর্টস ফ্যাশন (০১৭১৫-৭৮৯০১২)</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium">০১ ডিসে ২০২৩ — ২৬ নভে ২০২৬</div>
+                  <div class="text-[10px] text-slate-400">চুক্তি মেয়াদ: ৩ বছর</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 animate-pulse">
+                    <i class="fa-solid fa-clock"></i> ৮ দিন বাকি
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">৳২,০০,০০০</span>
+                  <div class="text-[10px] text-emerald-600">ব্যাংক ট্রাস্ট ফান্ডে জমা</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-blue-600">৳১৯,০০০/মাস</span>
+                  <div class="text-[10px] text-slate-500">বার্ষিক ১০% বৃদ্ধি প্রযোজ্য</div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openRenewModal('A-105', 'মো: রফিকুল ইসলাম', 19000, '২৬ নভে ২০২৬')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-bold transition text-xs">
+                      <i class="fa-solid fa-rotate mr-1"></i>নবায়ন
+                    </button>
+                    <button onclick="openAgreementViewer('AGR-2023-A105', 'A-105', 'মো: রফিকুল ইসলাম', 'রফিক স্পোর্টস ফ্যাশন', '০১ ডিসে ২০২৩ থেকে ২৬ নভে ২০২৬', 200000, 19000)" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg transition" title="চুক্তিপত্র দেখুন">
+                      <i class="fa-solid fa-file-contract"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Lease 2: 14 Days remaining (High Alert) -->
+              <tr class="hover:bg-slate-50/80 transition" data-expiry="15days">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">AGR-2023-B204</td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #B-204</span>
+                  <div class="text-[10px] text-slate-500">ব্লক B • ৩১০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">করিম উল্লাহ</div>
+                  <div class="text-[11px] text-slate-500">করিম ফুটবল কর্নার (০১৭১১-৮৮৯৯০০)</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium">০১ ডিসে ২০২৩ — ০২ ডিসে ২০২৬</div>
+                  <div class="text-[10px] text-slate-400">চুক্তি মেয়াদ: ৩ বছর</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 animate-pulse">
+                    <i class="fa-solid fa-clock"></i> ১৪ দিন বাকি
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">৳১,৮০,০০০</span>
+                  <div class="text-[10px] text-emerald-600">ব্যাংক ট্রাস্ট ফান্ডে জমা</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-blue-600">৳২২,০০০/মাস</span>
+                  <div class="text-[10px] text-slate-500">বার্ষিক ১০% বৃদ্ধি প্রযোজ্য</div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openRenewModal('B-204', 'করিম উল্লাহ', 22000, '০২ ডিসে ২০২৬')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-bold transition text-xs">
+                      <i class="fa-solid fa-rotate mr-1"></i>নবায়ন
+                    </button>
+                    <button onclick="openAgreementViewer('AGR-2023-B204', 'B-204', 'করিম উল্লাহ', 'করিম ফুটবল কর্নার', '০১ ডিসে ২০২৩ থেকে ০২ ডিসে ২০২৬', 180000, 22000)" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg transition" title="চুক্তিপত্র দেখুন">
+                      <i class="fa-solid fa-file-contract"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Lease 3: 22 Days remaining (30 Days Warning) -->
+              <tr class="hover:bg-slate-50/80 transition" data-expiry="30days">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">AGR-2023-C318</td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #C-318</span>
+                  <div class="text-[10px] text-slate-500">ব্লক C • ২২০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">মো: নাঈমুল ইসলাম</div>
+                  <div class="text-[11px] text-slate-500">আল-মদিনা ট্রফিজ এন্ড ক্রেস্ট</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium">১০ ডিসে ২০২৩ — ১০ ডিসে ২০২৬</div>
+                  <div class="text-[10px] text-slate-400">চুক্তি মেয়াদ: ৩ বছর</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                    <i class="fa-regular fa-clock"></i> ২২ দিন বাকি
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">৳১,২০,০০০</span>
+                  <div class="text-[10px] text-emerald-600">ব্যাংক ট্রাস্ট ফান্ডে জমা</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-blue-600">৳১৬,৫০০/মাস</span>
+                  <div class="text-[10px] text-slate-500">বার্ষিক ১০% বৃদ্ধি প্রযোজ্য</div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openRenewModal('C-318', 'মো: নাঈমুল ইসলাম', 16500, '১০ ডিসে ২০২৬')" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold transition text-xs">
+                      <i class="fa-solid fa-rotate mr-1"></i>নবায়ন
+                    </button>
+                    <button onclick="openAgreementViewer('AGR-2023-C318', 'C-318', 'মো: নাঈমুল ইসলাম', 'আল-মদিনা ট্রফিজ', '১০ ডিসে ২০২৩ থেকে ১০ ডিসে ২০২৬', 120000, 16500)" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg transition">
+                      <i class="fa-solid fa-file-contract"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Lease 4: Active (Long Term) -->
+              <tr class="hover:bg-slate-50/80 transition" data-expiry="active">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">AGR-2024-A102</td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #A-102</span>
+                  <div class="text-[10px] text-slate-500">ব্লক A • ২৪০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">তানভীর আহমেদ</div>
+                  <div class="text-[11px] text-slate-500">ভিক্টোরি স্পোর্টস গ্যালারি</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium">০১ জানু ২০২৪ — ৩১ ডিসে ২০২৬</div>
+                  <div class="text-[10px] text-slate-400">চুক্তি মেয়াদ: ৩ বছর</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+                    <i class="fa-solid fa-circle-check"></i> ৪৩ দিন বাকি
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">৳১,৫০,০০০</span>
+                  <div class="text-[10px] text-emerald-600">ব্যাংক ট্রাস্ট ফান্ডে জমা</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-blue-600">৳১৮,০০০/মাস</span>
+                  <div class="text-[10px] text-slate-500">বার্ষিক ১০% বৃদ্ধি প্রযোজ্য</div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openRenewModal('A-102', 'তানভীর আহমেদ', 18000, '৩১ ডিসে ২০২৬')" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold transition text-xs">
+                      নবায়ন
+                    </button>
+                    <button onclick="openAgreementViewer('AGR-2024-A102', 'A-102', 'তানভীর আহমেদ', 'ভিক্টোরি স্পোর্টস', '০১ জানু ২০২৪ থেকে ৩১ ডিসে ২০২৬', 150000, 18000)" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg transition">
+                      <i class="fa-solid fa-file-contract"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Lease 5: Active (Long Term) -->
+              <tr class="hover:bg-slate-50/80 transition" data-expiry="active">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">AGR-2024-D401</td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">শপ #D-401</span>
+                  <div class="text-[10px] text-slate-500">ব্লক D • ৩৫০ sqft</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">আশরাফুল হক</div>
+                  <div class="text-[11px] text-slate-500">ঢাকা সাইকেল অ্যান্ড ফিটনেস</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="text-slate-700 font-medium">০১ জুলাই ২০২৪ — ৩০ জুন ২০২৭</div>
+                  <div class="text-[10px] text-slate-400">চুক্তি মেয়াদ: ৩ বছর</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+                    <i class="fa-solid fa-circle-check"></i> ২১৯ দিন বাকি
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-slate-800">৳২,৫০,০০০</span>
+                  <div class="text-[10px] text-emerald-600">ব্যাংক ট্রাস্ট ফান্ডে জমা</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="font-bold text-blue-600">৳২৪,০০০/মাস</span>
+                  <div class="text-[10px] text-slate-500">বার্ষিক ১০% বৃদ্ধি প্রযোজ্য</div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button onclick="openRenewModal('D-401', 'আশরাফুল হক', 24000, '৩০ জুন ২০২৭')" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold transition text-xs">
+                      নবায়ন
+                    </button>
+                    <button onclick="openAgreementViewer('AGR-2024-D401', 'D-401', 'আশরাফুল হক', 'ঢাকা সাইকেল', '০১ জুলাই ২০২৪ থেকে ৩০ জুন ২০২৭', 250000, 24000)" class="p-1.5 text-slate-500 hover:bg-slate-100 rounded-lg transition">
+                      <i class="fa-solid fa-file-contract"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: Renew Lease Modal -->
+  <div id="renewLeaseModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('renewLeaseModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 modal-content z-10">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">চুক্তি নবায়ন (Lease Renewal)</h3>
+          <p class="text-xs text-slate-500">দোকান নং: <span id="renewShopNo" class="font-bold text-blue-600">A-105</span> (<span id="renewTenantName">মো: রফিকুল ইসলাম</span>)</p>
+        </div>
+        <button onclick="closeModal('renewLeaseModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); handleRenewSubmit();" class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">বর্তমান মেয়াদ সমাপ্তির তারিখ</label>
+            <input type="text" id="renewCurrentExpiry" readonly class="w-full px-3 py-2 border border-slate-200 rounded-xl bg-slate-50 font-medium">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">নবায়নের মেয়াদকাল*</label>
+            <select id="renewPeriod" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-blue-600">
+              <option value="1">১ বছর (১২ মাস)</option>
+              <option value="2">২ বছর (২৪ মাস)</option>
+              <option value="3" selected>৩ বছর (৩৬ মাস)</option>
+              <option value="5">৫ বছর (৬০ মাস)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">সংশোধিত মাসিক ভাড়া (৳)*</label>
+            <input type="number" id="renewNewRent" required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-emerald-600 text-sm">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">অতিরিক্ত জামানত সমন্বয় (৳)</label>
+            <input type="number" value="20000" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">চুক্তিপত্রের বিশেষ শর্ত বা সংশোধনী</label>
+          <textarea rows="2" class="w-full px-3 py-2 border border-slate-200 rounded-xl" placeholder="বার্ষিক ভাড়া বৃদ্ধি শতকরা ১০ ভাগ বহাল থাকবে..."></textarea>
+        </div>
+
+        <div class="p-3 bg-blue-50 border border-blue-100 rounded-xl text-blue-800">
+          <p class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-stamp"></i> নবায়ন নিশ্চয়তা:</p>
+          <p class="text-[11px] mt-1">নবায়ন অনুমোদনের সাথে সাথে স্বয়ংক্রিয়ভাবে নতুন চুক্তিপত্র নম্বর তৈরি হবে এবং স্ট্যাম্প স্বাক্ষরের জন্য প্রিন্ট কপি পাওয়া যাবে।</p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('renewLeaseModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">চুক্তি নবায়ন চূড়ান্ত করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: View Formal Lease Agreement Terms -->
+  <div id="agreementViewerModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('agreementViewerModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">দোকান ভাড়ার চুক্তিপত্র (Agreement Terms)</h3>
+          <p class="text-xs text-slate-500">রেফারেন্স: <span id="viewAgrRef" class="font-mono font-bold text-blue-600">AGR-2023-A105</span></p>
+        </div>
+        <button onclick="closeModal('agreementViewerModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-4 text-xs text-slate-700 leading-relaxed">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <p><span class="text-slate-500">প্রথম পক্ষ (কর্তৃপক্ষ):</span> <strong>জাতীয় স্টেডিয়াম মার্কেট এস্টেট</strong></p>
+            <p><span class="text-slate-500">দ্বিতীয় পক্ষ (ভাড়াটিয়া):</span> <strong id="viewTenant">মো: রফিকুল ইসলাম</strong></p>
+            <p><span class="text-slate-500">দোকানের অবস্থান:</span> <strong id="viewShop">শপ #A-105 (ব্লক A)</strong></p>
+            <p><span class="text-slate-500">ব্যবসার নাম:</span> <strong id="viewBusiness">রফিক স্পোর্টস ফ্যাশন</strong></p>
+            <p><span class="text-slate-500">চুক্তির মেয়াদকাল:</span> <strong id="viewPeriod">০১ ডিসে ২০২৩ থেকে ২৬ নভে ২০২৬</strong></p>
+            <p><span class="text-slate-500">মাসিক ভাড়া:</span> <strong id="viewRent" class="text-blue-600 font-bold">৳১৯,০০০</strong></p>
+            <p><span class="text-slate-500">জামানত (ডিপোজিট):</span> <strong id="viewDeposit" class="text-emerald-600 font-bold">৳২,০০,০০০</strong></p>
+          </div>
+        </div>
+
+        <div class="space-y-2 text-slate-600">
+          <h4 class="font-bold text-slate-800 text-xs uppercase">মূল শর্তাবলী ও নিয়মনীতি:</h4>
+          <p>১. প্রতি ইংরেজি মাসের ১০ তারিখের মধ্যে চলতি মাসের মাসিক ভাড়া ও ইউটিলিটি বিল পরিশোধ বাধ্যতামুলক। বিলম্বে পরিশোধে ৫% বিলম্ব ফি প্রযোজ্য হইবে।</p>
+          <p>২. জমাকৃত সিকিউরিটি জামানতের টাকা চুক্তি সমাপ্তির পর কোনো বকেয়া বা ক্ষতিসাধন না থাকিলে সম্পূর্ণ ফেরতযোগ্য হইবে।</p>
+          <p>৩. বরাদ্দকৃত দোকানে কোনো প্রকার অননুমোদিত বা বেআইনি পণ্য বিক্রয় সম্পূর্ণ নিষিদ্ধ।</p>
+          <p>৪. চুক্তি মেয়াদের পূর্বে দোকান ছাড়িতে চাহিলে কমপক্ষে ২ (দুই) মাস পূর্বে লিখিত নোটিশ প্রদান করিতে হইবে।</p>
+          <p>৫. কর্তৃপক্ষ স্টেডিয়ামের সার্বিক স্বার্থে অথবা উন্নয়ন কর্মকাণ্ডের প্রয়োজনে নোটিশ প্রদানপূর্বক চুক্তি বাতিলের অধিকার সংরক্ষণ করে।</p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <button type="button" onclick="window.print()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs flex items-center gap-1.5">
+          <i class="fa-solid fa-print"></i> প্রিন্ট চুক্তিপত্র
+        </button>
+        <button type="button" onclick="closeModal('agreementViewerModal')" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs">
+          ঠিক আছে
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: New Lease Modal -->
+  <div id="newLeaseModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('newLeaseModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">নতুন ভাড়ার চুক্তিপত্র নিবন্ধন</h3>
+          <p class="text-xs text-slate-500">নতুন বরাদ্দকৃত দোকানের বিপরীতে আনুষ্ঠানিক চুক্তি সম্পাদন</p>
+        </div>
+        <button onclick="closeModal('newLeaseModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal('newLeaseModal'); showToast('নতুন চুক্তিপত্র সফলভাবে নিবন্ধিত হয়েছে!', 'success');" class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">দোকান নির্বাচন করুন*</label>
+            <select required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-blue-600">
+              <option value="">দোকান বেছে নিন</option>
+              <option value="A-107">শপ #A-107 (ব্লক A, ১৮০ sqft)</option>
+              <option value="B-208">শপ #B-208 (ব্লক B, ৩২০ sqft)</option>
+              <option value="C-312">শপ #C-312 (ব্লক C, ২০০ sqft)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">ভাড়াটিয়ার নাম*</label>
+            <input type="text" required placeholder="ভাড়াটিয়ার পুরো নাম" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">চুক্তি শুরুর তারিখ*</label>
+            <input type="date" value="2026-12-01" required class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">চুক্তি সমাপ্তির তারিখ*</label>
+            <input type="date" value="2029-11-30" required class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">সিকিউরিটি জামানতের টাকা (৳)*</label>
+            <input type="number" required placeholder="যেমন: 150000" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">মাসিক মূল ভাড়া (৳)*</label>
+            <input type="number" required placeholder="যেমন: 18000" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-blue-600">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">নোটিশ পিরিয়ড (মাস)</label>
+          <input type="number" value="2" class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('newLeaseModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">নিবন্ধন সম্পন্ন করুন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Scripts -->
+  <script src="assets/js/common.js"></script>
+  <script>
+    function openRenewModal(shop, tenant, rent, expiry) {
+      document.getElementById('renewShopNo').innerText = shop;
+      document.getElementById('renewTenantName').innerText = tenant;
+      document.getElementById('renewCurrentExpiry').value = expiry;
+      document.getElementById('renewNewRent').value = Math.round(rent * 1.1); // 10% increment recommendation
+      openModal('renewLeaseModal');
+    }
+
+    function handleRenewSubmit() {
+      const shop = document.getElementById('renewShopNo').innerText;
+      closeModal('renewLeaseModal');
+      showToast(`${shop} এর চুক্তিপত্র সফলভাবে ৩ বছরের জন্য নবায়ন করা হয়েছে!`, 'success');
+    }
+
+    function openAgreementViewer(ref, shop, tenant, business, period, deposit, rent) {
+      document.getElementById('viewAgrRef').innerText = ref;
+      document.getElementById('viewShop').innerText = `শপ #${shop}`;
+      document.getElementById('viewTenant').innerText = tenant;
+      document.getElementById('viewBusiness').innerText = business;
+      document.getElementById('viewPeriod').innerText = period;
+      document.getElementById('viewDeposit').innerText = '৳' + deposit.toLocaleString('en-IN');
+      document.getElementById('viewRent').innerText = '৳' + rent.toLocaleString('en-IN') + '/মাস';
+      openModal('agreementViewerModal');
+    }
+
+    function filterExpiry(filter) {
+      document.querySelectorAll('.lease-pill').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('bg-blue-600', 'text-white');
+
+      const rows = document.querySelectorAll('#leaseTableBody tr');
+      rows.forEach(row => {
+        const val = row.getAttribute('data-expiry');
+        if (filter === 'all' || val === filter) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

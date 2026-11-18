@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>রিপোর্টস ও রাজস্ব বিশ্লেষণ (Financial & Vacancy Reports) | স্টেডিয়াম মার্কেট</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-xl">
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/50">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <i class="fa-solid fa-shop text-lg"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-base leading-tight">স্টেডিয়াম মার্কেট</h1>
+        <p class="text-[11px] text-blue-400 font-medium">শপ ও টেন্যান্ট পোর্টাল</p>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+      <div class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">মেনু ও অপশনস</div>
+      
+      <!-- 1. Live Dashboard -->
+      <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>লাইভ ড্যাশবোর্ড</span>
+      </a>
+
+      <!-- 2. Shop Management -->
+      <a href="shops.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-store w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>দোকান ব্যবস্থাপনা</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">১০০টি</span>
+      </a>
+
+      <!-- 3. Tenant Management -->
+      <a href="tenants.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-users w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়াটিয়া প্রোফাইল</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৮২ জন</span>
+      </a>
+
+      <!-- 4. Billing & Collection -->
+      <a href="billing.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়া ও বিলিং</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-900/60 text-amber-300">বকেয়া</span>
+      </a>
+
+      <!-- 5. Agreement & Lease -->
+      <a href="leases.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-contract w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>চুক্তি ও মেয়াদ</span>
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-900/70 text-rose-300">৪ শেষ</span>
+      </a>
+
+      <!-- 6. Notice & Maintenance -->
+      <a href="notices-maintenance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>নোটিশ ও অভিযোগ</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৩টি</span>
+      </a>
+
+      <!-- 7. Reports (Active) -->
+      <a href="reports.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-md shadow-blue-600/30">
+        <i class="fa-solid fa-chart-line w-5 text-center text-blue-200"></i>
+        <span>রিপোর্টস ও এনালাইসিস</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-3 m-3 rounded-xl bg-slate-800/80 border border-slate-700/60">
+      <div class="flex items-center justify-between text-xs mb-1.5">
+        <span class="text-slate-300 font-medium">বার্ষিক রাজস্ব অর্জন</span>
+        <span class="text-emerald-400 font-bold">৭৯.৮%</span>
+      </div>
+      <div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+        <div class="bg-emerald-500 h-full rounded-full" style="width: 79.8%"></div>
+      </div>
+      <div class="text-[11px] text-slate-400 mt-2">মোট আদায়: ৳১.৪৯ কোটি</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-30">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">রিপোর্টস ও এস্টেট অ্যানালিটিক্স</h2>
+          <p class="text-xs text-slate-500 hidden sm:block">মাস ও বছরভিত্তিক আদায়, বকেয়া এবং দোকান শূন্যতার ক্ষতি বিশ্লেষণ</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="downloadCSVReport()" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-xl shadow-md shadow-emerald-500/20 transition">
+          <i class="fa-solid fa-file-excel"></i>
+          <span class="hidden sm:inline">এক্সেল এক্সপোর্ট (.CSV)</span>
+        </button>
+        <button onclick="window.print()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-xl shadow-md transition">
+          <i class="fa-solid fa-print"></i>
+          <span class="hidden sm:inline">রিপোর্ট প্রিন্ট / PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 printable-area">
+
+      <!-- Report Filter Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">সময়সীমা:</span>
+          <select id="reportTimeRange" onchange="showToast('নির্বাচিত সময়সীমার রিপোর্ট লোড হচ্ছে...', 'info')" class="bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-blue-500">
+            <option value="current_fy">চলতি অর্থবছর (২০২৬-২০২৭)</option>
+            <option value="last_fy">বিগত অর্থবছর (২০২৫-২০২৬)</option>
+            <option value="q4">বিগত ৩ মাস</option>
+            <option value="november">চলতি মাস (নভেম্বর ২০২৬)</option>
+          </select>
+        </div>
+
+        <!-- Report Tabs Switcher -->
+        <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
+          <button id="btnCollectionReport" onclick="switchReportTab('collection')" class="px-4 py-2 rounded-lg bg-white text-blue-600 shadow-sm transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-invoice-dollar"></i> আদায় ও রাজস্ব রিপোর্ট
+          </button>
+          <button id="btnVacancyReport" onclick="switchReportTab('vacancy')" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-door-open"></i> দোকান শূন্যতা ও ক্ষতি বিশ্লেষণ
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: Collection & Revenue Report -->
+      <div id="collectionReportSection" class="space-y-6">
+        
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">মোট ধার্যকৃত রাজস্ব (Billed)</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">৳১,৮৭,২০,০০০</p>
+            <span class="text-[11px] text-slate-400">বার্ষিক প্রাক্কলিত মূল ও ইউটিলিটি</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-emerald-600">সর্বমোট সংগৃহীত রাজস্ব</p>
+            <p class="text-2xl font-black text-emerald-600 mt-1">৳১,৪৯,৪০,০০০</p>
+            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">৭৯.৮% আদায় সম্পন্ন</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-rose-600">মোট বকেয়া পাওনা (Due)</p>
+            <p class="text-2xl font-black text-rose-600 mt-1">৳৩৭,৮০,০০০</p>
+            <span class="text-[11px] text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full font-bold">২০.২% বকেয়া</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-indigo-600">ইউটিলিটি ও সার্ভিস ফান্ড</p>
+            <p class="text-2xl font-black text-indigo-600 mt-1">৳২৪,৬০,০০০</p>
+            <span class="text-[11px] text-slate-400">বিদ্যুৎ ও পরিচ্ছন্নতা খাতে সংগৃহীত</span>
+          </div>
+        </div>
+
+        <!-- Collection Trend Chart -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">মাসভিত্তিক রাজস্ব আদায় বনাম বকেয়ার গতিধারা</h3>
+              <p class="text-xs text-slate-500">অর্থবছর ২০২৬ এর মাসওয়ারী তুলনামূলক চিত্র</p>
+            </div>
+            <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-lg">BDT (টাকা)</span>
+          </div>
+          <div class="h-64 sm:h-80">
+            <canvas id="revenueTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Collection Summary Table -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+            <h4 class="font-bold text-slate-800 text-sm">মাসওয়ারী আদায় ও বকেয়ার বিবরণী (Monthly Breakdown Table)</h4>
+            <span class="text-xs text-slate-500">স্বয়ংক্রিয় অডিট রেকর্ড</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">মাস ও বছর</th>
+                  <th class="py-3 px-4">সক্রিয় দোকান</th>
+                  <th class="py-3 px-4">মূল ভাড়া দাবি</th>
+                  <th class="py-3 px-4">ইউটিলিটি চার্জ</th>
+                  <th class="py-3 px-4">মোট বিলিং</th>
+                  <th class="py-3 px-4">আদায়কৃত টাকা</th>
+                  <th class="py-3 px-4">বকেয়া</th>
+                  <th class="py-3 px-4">আদায় হার (%)</th>
+                  <th class="py-3 px-4 text-right">স্ট্যাটাস</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <!-- Nov 2026 -->
+                <tr class="hover:bg-slate-50/80 transition font-medium">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">নভেম্বর ২০২৬ (চলতি)</td>
+                  <td class="py-3.5 px-4">৮২টি</td>
+                  <td class="py-3.5 px-4">৳১৩,৫৫,০০০</td>
+                  <td class="py-3.5 px-4">৳২,০৫,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-900">৳১৫,৬০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-600">৳১২,৪৫,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-600">৳৩,১৫,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-blue-600">৭৯.৮%</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md text-[10px] font-bold">চলমান মাস</span>
+                  </td>
+                </tr>
+
+                <!-- Oct 2026 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">অক্টোবর ২০২৬</td>
+                  <td class="py-3.5 px-4">৮২টি</td>
+                  <td class="py-3.5 px-4">৳১৩,৫৫,০০০</td>
+                  <td class="py-3.5 px-4">৳২,০৫,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-900">৳১৫,৬০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-600">৳১৪,৮০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-600">৳৮০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-blue-600">৯৪.৮%</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-md text-[10px] font-bold">সম্পন্ন</span>
+                  </td>
+                </tr>
+
+                <!-- Sep 2026 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">সেপ্টেম্বর ২০২৬</td>
+                  <td class="py-3.5 px-4">৮১টি</td>
+                  <td class="py-3.5 px-4">৳১৩,৪০,০০০</td>
+                  <td class="py-3.5 px-4">৳২,২০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-900">৳১৫,৬০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-600">৳১৫,১০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-600">৳৫০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-blue-600">৯৬.৮%</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-md text-[10px] font-bold">সম্পন্ন</span>
+                  </td>
+                </tr>
+
+                <!-- Aug 2026 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">আগস্ট ২০২৬</td>
+                  <td class="py-3.5 px-4">৮০টি</td>
+                  <td class="py-3.5 px-4">৳১৩,২০,০০০</td>
+                  <td class="py-3.5 px-4">৳২,৪০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-900">৳১৫,৬০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-600">৳১৪,৫০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-600">৳১,১০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-blue-600">৯২.৯%</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-md text-[10px] font-bold">সম্পন্ন</span>
+                  </td>
+                </tr>
+
+                <!-- July 2026 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-800">জুলাই ২০২৬</td>
+                  <td class="py-3.5 px-4">৮০টি</td>
+                  <td class="py-3.5 px-4">৳১৩,২০,০০০</td>
+                  <td class="py-3.5 px-4">৳২,৪০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-900">৳১৫,৬০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-600">৳১৪,৯০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-600">৳৭০,০০০</td>
+                  <td class="py-3.5 px-4 font-bold text-blue-600">৯৫.৫%</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-md text-[10px] font-bold">সম্পন্ন</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: Vacancy & Revenue Loss Analysis Report -->
+      <div id="vacancyReportSection" class="hidden space-y-6">
+        
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">গড় অকুপেন্সি রেট</p>
+            <p class="text-2xl font-black text-emerald-600 mt-1">৮৪.৫%</p>
+            <span class="text-[11px] text-slate-400">১০০টি দোকানের মধ্যে</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">সর্বমোট খালি মাস (Vacant Months)</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">৭৪ মাস</p>
+            <span class="text-[11px] text-amber-600 font-semibold">বিগত এক বছরে সম্মিলিত</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-rose-600">প্রাক্কলিত রাজস্ব ক্ষতি (Lost Revenue)</p>
+            <p class="text-2xl font-black text-rose-600 mt-1">৳১৩,৩২,০০০</p>
+            <span class="text-[11px] text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full font-bold">খালি থাকার কারণে ক্ষতি</span>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-blue-600">দ্রুত বরাদ্দ সুপারিশকৃত শপ</p>
+            <p class="text-2xl font-black text-blue-600 mt-1">৮টি দোকান</p>
+            <span class="text-[11px] text-slate-400">বিজ্ঞাপন প্রকাশের পরামর্শ</span>
+          </div>
+        </div>
+
+        <!-- Vacancy Breakdown Graph -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <h3 class="font-bold text-slate-800 text-base mb-1">ব্লকভিত্তিক দোকান খালি থাকার হার</h3>
+            <p class="text-xs text-slate-500 mb-4">কোন ব্লকে সবচেয়ে বেশি দোকান খালি থাকে</p>
+            <div class="h-64">
+              <canvas id="blockVacancyChart"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-slate-800 text-base mb-1">দোকান শূন্যতার মূল কারণসমূহ</h3>
+              <p class="text-xs text-slate-500 mb-4">এস্টেট অডিট অনুযায়ী বিশ্লেষণ</p>
+              
+              <div class="space-y-3 text-xs">
+                <div>
+                  <div class="flex justify-between font-semibold mb-1">
+                    <span>পেছনের সারির অবস্থান ও দৃশ্যমানতার অভাব</span>
+                    <span class="text-slate-600">৪৫%</span>
+                  </div>
+                  <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div class="bg-blue-600 h-full rounded-full" style="width: 45%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-semibold mb-1">
+                    <span>ভাড়ার হার বাজারের চেয়ে তুলনামূলক বেশি</span>
+                    <span class="text-slate-600">২৫%</span>
+                  </div>
+                  <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div class="bg-amber-500 h-full rounded-full" style="width: 25%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-semibold mb-1">
+                    <span>দীর্ঘমেয়াদী মেরামত বা শাটার সংস্কার কাজ</span>
+                    <span class="text-slate-600">১৮%</span>
+                  </div>
+                  <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div class="bg-rose-500 h-full rounded-full" style="width: 18%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-semibold mb-1">
+                    <span>চুক্তি সমাপ্তির পর নতুন টেন্ডার প্রক্রিয়ায় বিলম্ব</span>
+                    <span class="text-slate-600">১২%</span>
+                  </div>
+                  <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div class="bg-emerald-500 h-full rounded-full" style="width: 12%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-blue-50 border border-blue-100 rounded-xl mt-4 text-xs text-blue-900">
+              <i class="fa-solid fa-lightbulb text-amber-500 mr-1.5"></i> <strong>অ্যাডমিন সুপারিশ:</strong> ব্লক C এর পেছনের দোকানগুলোর জন্য ভাড়া ১০% হ্রাস বা আকর্ষণীয় প্যাকেজ দিলে বার্ষিক প্রায় ৳৪,০০,০০০ টাকার অতিরিক্ত রাজস্ব আদায় সম্ভব।
+            </div>
+          </div>
+        </div>
+
+        <!-- High Vacancy Shops Table -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm">বছরে সবচেয়ে বেশি সময় খালি পড়ে থাকা দোকানসমূহ</h4>
+              <p class="text-xs text-slate-500">দীর্ঘদিন অবিক্রীত বা খালি থাকা ইউনিটের তালিকা ও রাজস্ব ক্ষতি</p>
+            </div>
+            <span class="text-xs bg-rose-50 text-rose-700 font-bold px-3 py-1 rounded-lg">শীর্ষ খালি শপ</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">দোকান নম্বর</th>
+                  <th class="py-3 px-4">জোন ও ফ্লোর</th>
+                  <th class="py-3 px-4">আয়তন</th>
+                  <th class="py-3 px-4">নির্ধারিত মাসিক ভাড়া</th>
+                  <th class="py-3 px-4">খালি থাকার মোট সময়</th>
+                  <th class="py-3 px-4">মোট রাজস্ব ক্ষতি (BDT)</th>
+                  <th class="py-3 px-4">কারণ ও বর্তমান অবস্থা</th>
+                  <th class="py-3 px-4 text-right">পদক্ষেপ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <!-- Shop 1 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">শপ #C-312</td>
+                  <td class="py-3.5 px-4 text-slate-600">ব্লক C • সাউথ গ্যালারি</td>
+                  <td class="py-3.5 px-4 font-medium">২০০ sqft</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">৳১৬,৫০০/মাস</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
+                      ৮ মাস (২৪০ দিন)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 font-black text-rose-600">৳১,৩২,০০০</td>
+                  <td class="py-3.5 px-4 text-slate-600">পেছনের কর্নার, ফুটফল কম</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('শপ #C-312 এর জন্য বিজ্ঞাপন নোটিশ প্রস্তুত', 'info')" class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">ভাড়ার প্রস্তাব</button>
+                  </td>
+                </tr>
+
+                <!-- Shop 2 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">শপ #D-410</td>
+                  <td class="py-3.5 px-4 text-slate-600">ব্লক D • ভিআইপি গেট</td>
+                  <td class="py-3.5 px-4 font-medium">৩০০ sqft</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">৳২৪,০০০/মাস</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
+                      ৬ মাস (১৮০ দিন)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 font-black text-rose-600">৳১,৪৪,০০০</td>
+                  <td class="py-3.5 px-4 text-slate-600">পূর্বের চুক্তি বাতিলের পর খালি</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('শপ #D-410 এর জন্য বিজ্ঞাপন নোটিশ প্রস্তুত', 'info')" class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">ভাড়ার প্রস্তাব</button>
+                  </td>
+                </tr>
+
+                <!-- Shop 3 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">শপ #A-107</td>
+                  <td class="py-3.5 px-4 text-slate-600">ব্লক A • মেইন রোড</td>
+                  <td class="py-3.5 px-4 font-medium">১৮০ sqft</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">৳১৫,০০০/মাস</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                      ৪.৫ মাস (১৩৫ দিন)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 font-black text-rose-600">৳৬৭,৫০০</td>
+                  <td class="py-3.5 px-4 text-slate-600">মেঝে ও শাটার সংস্কার কাজ সম্পন্ন</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('শপ #A-107 এর জন্য বিজ্ঞাপন নোটিশ প্রস্তুত', 'info')" class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">ভাড়ার প্রস্তাব</button>
+                  </td>
+                </tr>
+
+                <!-- Shop 4 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900">শপ #B-208</td>
+                  <td class="py-3.5 px-4 text-slate-600">ব্লক B • ১ম তলা</td>
+                  <td class="py-3.5 px-4 font-medium">৩২০ sqft</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">৳২২,০০০/মাস</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                      ৪ মাস (১২০ দিন)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 font-black text-rose-600">৳৮৮,০০০</td>
+                  <td class="py-3.5 px-4 text-slate-600">আবেদন যাচাইকরণ পর্যায়ে আছে</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('আবেদনকারীকে চূড়ান্ত নোটিশ পাঠানো হয়েছে', 'info')" class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">বরাদ্দ চূড়ান্ত</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Shared Scripts -->
+  <script src="assets/js/common.js"></script>
+  <script>
+    function switchReportTab(tab) {
+      const colSec = document.getElementById('collectionReportSection');
+      const vacSec = document.getElementById('vacancyReportSection');
+      const btnCol = document.getElementById('btnCollectionReport');
+      const btnVac = document.getElementById('btnVacancyReport');
+
+      if (tab === 'collection') {
+        colSec.classList.remove('hidden');
+        vacSec.classList.add('hidden');
+        btnCol.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+        btnCol.classList.remove('text-slate-600');
+        btnVac.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+        btnVac.classList.add('text-slate-600');
+      } else {
+        colSec.classList.add('hidden');
+        vacSec.classList.remove('hidden');
+        btnVac.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+        btnVac.classList.remove('text-slate-600');
+        btnCol.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+        btnCol.classList.add('text-slate-600');
+      }
+    }
+
+    function downloadCSVReport() {
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + "মাস,মোট দাবি,আদায়কৃত,বকেয়া,আদায় হার\n"
+        + "নভেম্বর ২০২৬,1560000,1245000,315000,79.8%\n"
+        + "অক্টোবর ২০২৬,1560000,1480000,80000,94.8%\n"
+        + "সেপ্টেম্বর ২০২৬,1560000,1510000,50000,96.8%\n"
+        + "আগস্ট ২০২৬,1560000,1450000,110000,92.9%\n"
+        + "জুলাই ২০২৬,1560000,1490000,70000,95.5%";
+      
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "stadium_market_revenue_report_2026.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('এক্সেল (CSV) ফাইল ডাউনলোড সম্পন্ন হয়েছে!', 'success');
+    }
+
+    // Chart.js initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Revenue Trend Chart
+      const ctxRev = document.getElementById('revenueTrendChart').getContext('2d');
+      new Chart(ctxRev, {
+        type: 'line',
+        data: {
+          labels: ['জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর (প্রাক্কলিত)'],
+          datasets: [
+            {
+              label: 'মোট দাবি (Target)',
+              data: [1560000, 1560000, 1560000, 1560000, 1560000, 1560000],
+              borderColor: '#94a3b8',
+              borderDash: [5, 5],
+              tension: 0.1,
+              fill: false
+            },
+            {
+              label: 'প্রকৃত আদায় (Collected)',
+              data: [1490000, 1450000, 1510000, 1480000, 1245000, 1500000],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              tension: 0.3,
+              fill: true
+            },
+            {
+              label: 'বকেয়া (Due)',
+              data: [70000, 110000, 50000, 80000, 315000, 60000],
+              borderColor: '#f43f5e',
+              backgroundColor: 'rgba(244, 63, 94, 0.1)',
+              tension: 0.3,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              ticks: {
+                callback: function(val) {
+                  return '৳' + (val / 100000) + ' লাখ';
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Block Vacancy Chart
+      const ctxVac = document.getElementById('blockVacancyChart').getContext('2d');
+      new Chart(ctxVac, {
+        type: 'bar',
+        data: {
+          labels: ['ব্লক A (গ্রাউন্ড)', 'ব্লক B (১ম তলা)', 'ব্লক C (সাউথ)', 'ব্লক D (ভিআইপি)'],
+          datasets: [
+            {
+              label: 'ভাড়া হয়েছে (Occupied)',
+              data: [23, 21, 18, 20],
+              backgroundColor: '#10b981'
+            },
+            {
+              label: 'খালি দোকান (Vacant)',
+              data: [2, 3, 5, 2],
+              backgroundColor: '#cbd5e1'
+            },
+            {
+              label: 'মেরামত চলছে (Maintenance)',
+              data: [0, 1, 2, 3],
+              backgroundColor: '#f59e0b'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { stacked: true },
+            y: { stacked: true, max: 25 }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

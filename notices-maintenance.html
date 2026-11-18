@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>নোটিশ ও অভিযোগ বক্স (Notice & Complaints) | স্টেডিয়াম মার্কেট</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-xl">
+    <div class="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/50">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <i class="fa-solid fa-shop text-lg"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-base leading-tight">স্টেডিয়াম মার্কেট</h1>
+        <p class="text-[11px] text-blue-400 font-medium">শপ ও টেন্যান্ট পোর্টাল</p>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+      <div class="px-3 pb-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">মেনু ও অপশনস</div>
+      
+      <!-- 1. Live Dashboard -->
+      <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>লাইভ ড্যাশবোর্ড</span>
+      </a>
+
+      <!-- 2. Shop Management -->
+      <a href="shops.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-store w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>দোকান ব্যবস্থাপনা</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">১০০টি</span>
+      </a>
+
+      <!-- 3. Tenant Management -->
+      <a href="tenants.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-users w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়াটিয়া প্রোফাইল</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">৮২ জন</span>
+      </a>
+
+      <!-- 4. Billing & Collection -->
+      <a href="billing.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>ভাড়া ও বিলিং</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-900/60 text-amber-300">বকেয়া</span>
+      </a>
+
+      <!-- 5. Agreement & Lease -->
+      <a href="leases.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-file-contract w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>চুক্তি ও মেয়াদ</span>
+        <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-900/70 text-rose-300">৪ শেষ</span>
+      </a>
+
+      <!-- 6. Notice & Maintenance (Active) -->
+      <a href="notices-maintenance.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-md shadow-blue-600/30">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-blue-200"></i>
+        <span>নোটিশ ও অভিযোগ</span>
+        <span class="ml-auto text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-800 text-blue-200">৩টি</span>
+      </a>
+
+      <!-- 7. Reports -->
+      <a href="reports.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800 hover:text-white transition group">
+        <i class="fa-solid fa-chart-line w-5 text-center text-slate-400 group-hover:text-blue-400 transition"></i>
+        <span>রিপোর্টস ও এনালাইসিস</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-3 m-3 rounded-xl bg-slate-800/80 border border-slate-700/60">
+      <div class="flex items-center justify-between text-xs mb-1.5">
+        <span class="text-slate-300 font-medium">কমপ্লেইন সমাধান হার</span>
+        <span class="text-emerald-400 font-bold">৮৯% সলভড</span>
+      </div>
+      <div class="text-[11px] text-slate-400">৭৮টি সমাধান • ৯টি চলমান/পেন্ডিং</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-30">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">যোগাযোগ ও অভিযোগ সমাধান কেন্দ্র</h2>
+          <p class="text-xs text-slate-500 hidden sm:block">ব্রডকাস্ট নোটিশ প্রেরণ ও দোকানের মেইনটেন্যান্স ট্র্যাকিং</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openModal('composeNoticeModal')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-md shadow-blue-500/20 transition">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>ব্রডকাস্ট নোটিশ পাঠান</span>
+        </button>
+        <button onclick="openModal('newComplaintModal')" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold px-3 py-2 rounded-xl transition">
+          <i class="fa-solid fa-plus text-blue-600"></i>
+          <span class="hidden sm:inline">নতুন কমপ্লেইন এন্ট্রি</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- Stats Overview Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500">মোট প্রেরিত নোটিশ</p>
+            <p class="text-2xl font-black text-slate-800 mt-1">২৪টি</p>
+            <span class="text-[11px] text-blue-600 font-semibold">SMS ও পোর্টাল নোটিশ</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-rose-600">পেন্ডিং কমপ্লেইন</p>
+            <p class="text-2xl font-black text-rose-600 mt-1">৪টি</p>
+            <span class="text-[11px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded font-semibold">টেকনিশিয়ান অ্যাসাইন বাকি</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-bell-exclamation"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-amber-600">কাজ চলমান (In-Progress)</p>
+            <p class="text-2xl font-black text-amber-600 mt-1">৫টি</p>
+            <span class="text-[11px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-semibold">মেরামত কাজ চলছে</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-emerald-600">সমাধান সম্পন্ন</p>
+            <p class="text-2xl font-black text-emerald-600 mt-1">৭৮টি</p>
+            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-semibold">সফলভাবে সমাধানকৃত</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Section Tabs Switcher (Broadcast Notice vs Complaint Box) -->
+      <div class="flex border-b border-slate-200 bg-white px-4 pt-2 rounded-t-2xl border-t border-x border-slate-200/80 shadow-sm">
+        <button id="tabNoticeBtn" onclick="switchSection('notice')" class="px-5 py-3 text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center gap-2">
+          <i class="fa-solid fa-bullhorn"></i> ব্রডকাস্ট নোটিশ প্যানেল (Notice Board)
+        </button>
+        <button id="tabComplaintBtn" onclick="switchSection('complaint')" class="px-5 py-3 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent flex items-center gap-2">
+          <i class="fa-solid fa-wrench"></i> কমপ্লেইন বক্স ও মেইনটেন্যান্স (Complaints)
+          <span class="bg-rose-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">৯</span>
+        </button>
+      </div>
+
+      <!-- SECTION 1: Broadcast Notice Panel -->
+      <div id="noticeSection" class="bg-white rounded-b-2xl border-b border-x border-slate-200/80 shadow-sm p-5 space-y-6">
+        
+        <!-- Quick Composer Banner -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">সব বা নির্দিষ্ট ব্লকের ভাড়াটিয়াদের নোটিশ পাঠান</h3>
+              <p class="text-xs text-slate-500">স্টেডিয়ামের জরুরি বন্ধ, ম্যাচ ডে নিরাপত্তা বা ভাড়ার তাগিদ সরাসরি সবার মোবাইলে এসএমএস আকারে পাঠান।</p>
+            </div>
+          </div>
+          <button onclick="openModal('composeNoticeModal')" class="shrink-0 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition">
+            + নতুন নোটিশ কম্পোজ করুন
+          </button>
+        </div>
+
+        <!-- Sent Notices History Table -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="font-bold text-slate-800 text-sm">প্রেরিত নোটিশের তালিকা ও ডেলিভারি হিস্টোরি</h4>
+            <span class="text-xs text-slate-500">মোট ২৪টি নোটিশ সংরক্ষিত</span>
+          </div>
+
+          <div class="overflow-x-auto border border-slate-200 rounded-xl">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="py-3 px-4">তারিখ ও সময়</th>
+                  <th class="py-3 px-4">নোটিশের বিষয়বস্তু</th>
+                  <th class="py-3 px-4">টার্গেট প্রাপক</th>
+                  <th class="py-3 px-4">ক্যাটাগরি</th>
+                  <th class="py-3 px-4">মাধ্যম</th>
+                  <th class="py-3 px-4">ডেলিভারি স্ট্যাটাস</th>
+                  <th class="py-3 px-4 text-right">ভিউ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <!-- Notice 1 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 text-slate-500">১৮ নভে ২০২৬, ১০:৩০ AM</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">
+                    আন্তর্জাতিক ক্রিকেট ম্যাচ উপলক্ষে ভিআইপি গেট ও মার্কেট বন্ধ সংক্রান্ত
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-semibold text-[11px]">সব ভাড়াটিয়া (৮২ জন)</span>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 font-semibold text-[11px]">স্টেডিয়াম নিরাপত্তা</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-600">
+                    <i class="fa-solid fa-comment-sms text-blue-500 mr-1"></i> SMS & পোর্টাল
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-check-double mr-1"></i>৮২/৮২ সফল ডেলিভারি</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('নোটিশের পূর্ণাঙ্গ কপি: ২১ নভেম্বর ম্যাচ চলাকালীন সকাল ৮টা থেকে রাত ১০টা পর্যন্ত মার্কেট গেট ২ ও ৪ বন্ধ থাকবে।', 'info')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Notice 2 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 text-slate-500">১০ নভে ২০২৬, ০৪:১৫ PM</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">
+                    নভেম্বর মাসের দোকান ভাড়া পরিশোধের শেষ সময় তাগিদ
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 font-semibold text-[11px]">বকেয়া থাকা শপ (১৮ জন)</span>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 font-semibold text-[11px]">ভাড়া তাগিদ</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-600">
+                    <i class="fa-solid fa-comment-sms text-blue-500 mr-1"></i> SMS
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-check-double mr-1"></i>১৮/১৮ প্রেরিত</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('নোটিশ কপি: ১০ তারিখের মধ্যে বকেয়া পরিশোধ না করিলে বিলম্ব ফি প্রযোজ্য হইবে।', 'info')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Notice 3 -->
+                <tr class="hover:bg-slate-50/80 transition">
+                  <td class="py-3.5 px-4 text-slate-500">০২ নভে ২০২৬, ১১:০০ AM</td>
+                  <td class="py-3.5 px-4 font-bold text-slate-800">
+                    ব্লক B এর সেন্ট্রাল পানির রিজার্ভার ও পাইপলাইন পরিচ্ছন্নতা কার্যক্রম
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">শুধুমাত্র ব্লক B (২৫টি দোকান)</span>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-semibold text-[11px]">ইউটিলিটি শাটডাউন</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-600">
+                    <i class="fa-solid fa-envelope text-indigo-500 mr-1"></i> SMS
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-check-double mr-1"></i>২৫/২৫ সফল</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button onclick="showToast('নোটিশ কপি: ০৪ নভেম্বর দুপুর ২টা থেকে ৪টা পর্যন্ত সাময়িক পানি সরবরাহ বন্ধ থাকিবে।', 'info')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Complaint Box & Maintenance -->
+      <div id="complaintSection" class="hidden bg-white rounded-b-2xl border-b border-x border-slate-200/80 shadow-sm p-5 space-y-6">
+        
+        <!-- Controls & Filter -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400 font-medium">ফিল্টার:</span>
+            <button onclick="filterComplaint('all')" class="complaint-pill active bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">সকল অভিযোগ (৯)</button>
+            <button onclick="filterComplaint('পেন্ডিং')" class="complaint-pill bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1 rounded-lg text-xs font-medium">পেন্ডিং (৪)</button>
+            <button onclick="filterComplaint('চলমান')" class="complaint-pill bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1 rounded-lg text-xs font-medium">কাজ চলমান (৫)</button>
+            <button onclick="filterComplaint('সমাধান')" class="complaint-pill bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1 rounded-lg text-xs font-medium">সমাধানকৃত (৭৮)</button>
+          </div>
+
+          <button onclick="openModal('newComplaintModal')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 self-start sm:self-auto">
+            <i class="fa-solid fa-plus"></i> নতুন কমপ্লেইন রেজিস্টার
+          </button>
+        </div>
+
+        <!-- Complaints Table -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+          <table id="complaintTable" class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">টিকেট আইডি</th>
+                <th class="py-3 px-4">দোকান ও ভাড়াটিয়া</th>
+                <th class="py-3 px-4">সমস্যার ধরণ (Category)</th>
+                <th class="py-3 px-4">অভিযোগের বিবরণ</th>
+                <th class="py-3 px-4">প্রায়োরিটি</th>
+                <th class="py-3 px-4">নির্ধারিত টেকনিশিয়ান</th>
+                <th class="py-3 px-4">স্ট্যাটাস</th>
+                <th class="py-3 px-4 text-right">অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="complaintTableBody" class="divide-y divide-slate-100">
+              
+              <!-- Complaint 1: Shutter issue (In Progress) -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="চলমান">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">#CMP-8821</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #C-302</div>
+                  <div class="text-[11px] text-slate-500">নাজমুল স্পোর্টস</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-700">
+                  <i class="fa-solid fa-door-closed text-amber-500 mr-1"></i> শাটার সমস্যা
+                </td>
+                <td class="py-3.5 px-4 text-slate-600 max-w-xs truncate">
+                  রোলার শাটারের স্প্রিং জ্যাম হয়ে অর্ধেক আটকে আছে, বন্ধ করা যাচ্ছে না।
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">
+                    জরুরি (High)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-semibold text-slate-800">মো: কালাম</div>
+                  <div class="text-[10px] text-slate-500">শাটার মেকানিক (০১৭১৮-XXXXXX)</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                    <i class="fa-solid fa-spinner fa-spin text-[10px]"></i> কাজ চলমান
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="openResolveModal('#CMP-8821', 'শপ #C-302', 'শাটার সমস্যা', 'মো: কালাম')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition text-xs">
+                    <i class="fa-solid fa-check mr-1"></i>সমাধান
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Complaint 2: Electrical (Pending) -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="পেন্ডিং">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">#CMP-8822</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #A-110</div>
+                  <div class="text-[11px] text-slate-500">ঢাকা অপটিক্যাল</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-700">
+                  <i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> বিদ্যুৎ সমস্যা
+                </td>
+                <td class="py-3.5 px-4 text-slate-600 max-w-xs truncate">
+                  মেইন সুইচবোর্ডে শর্ট সার্কিট হয়ে ফিউজ পুড়ে গেছে, দোকান অন্ধকার।
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">
+                    জরুরি (High)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-amber-600 font-semibold">
+                  অ্যাসাইন করা হয়নি
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800">
+                    <i class="fa-solid fa-clock text-[10px]"></i> পেন্ডিং
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="showToast('ইলেকট্রিশিয়ান আরিফুল ইসলামকে পাঠানো হয়েছে', 'success')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition text-xs">
+                    অ্যাসাইন করুন
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Complaint 3: Water Leakage (In Progress) -->
+              <tr class="hover:bg-slate-50/80 transition" data-status="চলমান">
+                <td class="py-3.5 px-4 font-mono font-bold text-blue-600">#CMP-8819</td>
+                <td class="py-3.5 px-4">
+                  <div class="font-bold text-slate-800">শপ #B-214</div>
+                  <div class="text-[11px] text-slate-500">স্টার ফ্যাশন</div>
+                </td>
+                <td class="py-3.5 px-4 font-semibold text-slate-700">
+                  <i class="fa-solid fa-faucet text-blue-500 mr-1"></i> পানি ও ড্রেনেজ
+                </td>
+                <td class="py-3.5 px-4 text-slate-600 max-w-xs truncate">
+                  পাশের ওয়াশরুমের পাইপ লিকেজ হয়ে দোকানের পেছনের দেয়ালে পানি চুইয়ে পড়ছে।
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                    মাঝারি (Medium)
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="font-semibold text-slate-800">সুমন মিয়া</div>
+                  <div class="text-[10px] text-slate-500">প্লাম্বার (০১৯২২-XXXXXX)</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                    <i class="fa-solid fa-spinner fa-spin text-[10px]"></i> কাজ চলমান
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <button onclick="openResolveModal('#CMP-8819', 'শপ #B-214', 'পানি লিকেজ', 'সুমন মিয়া')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition text-xs">
+                    <i class="fa-solid fa-check mr-1"></i>সমাধান
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: Compose Broadcast Notice Modal -->
+  <div id="composeNoticeModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('composeNoticeModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">ব্রডকাস্ট নোটিশ প্রেরণ করুন</h3>
+          <p class="text-xs text-slate-500">একসাথে সব বা নির্দিষ্ট ব্লকের ভাড়াটিয়াদের নোটিশ বার্তা প্রেরণ</p>
+        </div>
+        <button onclick="closeModal('composeNoticeModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal('composeNoticeModal'); showToast('ব্রডকাস্ট নোটিশ সফলভাবে প্রেরিত হয়েছে!', 'success');" class="mt-4 space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">কাদের কাছে পাঠাবেন (Target Audience)*</label>
+          <select required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-blue-600">
+            <option value="all">সকল ভাড়াটিয়া (১০০টি দোকান / ৮২ জন সক্রিয় ভাড়াটিয়া)</option>
+            <option value="blockA">শুধুমাত্র ব্লক A (গ্রাউন্ড ফ্লোর)</option>
+            <option value="blockB">শুধুমাত্র ব্লক B (১ম তলা)</option>
+            <option value="blockC">শুধুমাত্র ব্লক C (সাউথ গ্যালারি)</option>
+            <option value="blockD">শুধুমাত্র ব্লক D (ভিআইপি গেট)</option>
+            <option value="due">শুধুমাত্র যাদের ভাড়া বকেয়া রয়েছে (১৮ জন)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">নোটিশের ধরণ*</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+              <option>স্টেডিয়াম বন্ধ / ম্যাচ ডে সিকিউরিটি</option>
+              <option>ভাড়া ও ইউটিলিটি পরিশোধের তাগিদ</option>
+              <option>বিদ্যুৎ / পানি লাইন মেরামত সংক্রান্ত</option>
+              <option>সাধারণ প্রশাসনিক নির্দেশনা</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">প্রেরণের মাধ্যম</label>
+            <div class="flex items-center gap-3 pt-2">
+              <label class="flex items-center gap-1.5"><input type="checkbox" checked class="rounded text-blue-600"> SMS</label>
+              <label class="flex items-center gap-1.5"><input type="checkbox" checked class="rounded text-blue-600"> ওয়েব পোর্টাল</label>
+              <label class="flex items-center gap-1.5"><input type="checkbox" class="rounded text-blue-600"> ইমেইল</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">নোটিশের শিরোনাম (Subject)*</label>
+          <input type="text" required placeholder="যেমন: আগামী ২১শে নভেম্বর স্টেডিয়াম মার্কেট সাময়িক বন্ধ সংক্রান্ত" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">নোটিশের বিস্তারিত বক্তব্য*</label>
+          <textarea rows="4" required placeholder="সকল ভাড়াটিয়াদের অবগতির জন্য জানানো যাচ্ছে যে..." class="w-full px-3 py-2 border border-slate-200 rounded-xl"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('composeNoticeModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">
+            <i class="fa-solid fa-paper-plane mr-1"></i> নোটিশ সেন্ড করুন
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: New Complaint Modal -->
+  <div id="newComplaintModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('newComplaintModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 modal-content z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">নতুন অভিযোগ / মেরামত রিকোয়েস্ট</h3>
+          <p class="text-xs text-slate-500">দোকানের শাটার, বিদ্যুৎ বা পানির ত্রুটি রেজিস্টার করুন</p>
+        </div>
+        <button onclick="closeModal('newComplaintModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); closeModal('newComplaintModal'); showToast('অভিযোগটি সফলভাবে নথিভুক্ত হয়েছে!', 'success');" class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">দোকান নম্বর*</label>
+            <input type="text" required placeholder="যেমন: A-102" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold text-blue-600">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">সমস্যার ধরণ*</label>
+            <select required class="w-full px-3 py-2 border border-slate-200 rounded-xl font-semibold">
+              <option value="shutter">রোলার শাটার বা দরজার লক জ্যাম</option>
+              <option value="electric">বিদ্যুৎ ও মিটার সমস্যা</option>
+              <option value="water">পানির লাইন বা স্যানিটেশন লিকেজ</option>
+              <option value="roof">ছাদ বা দেওয়াল চুইয়ে পানি পড়া</option>
+              <option value="other">অন্যান্য সাধারণ ত্রুটি</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">জরুরিত্বের মাত্রা (Priority)*</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold">
+              <option value="high">জরুরি (High - আজকেই সমাধান চাই)</option>
+              <option value="medium">সাধারণ (Medium)</option>
+              <option value="low">কম জরুরি (Low)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">অ্যাসাইন টেকনিশিয়ান</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-xl">
+              <option value="kalam">মো: কালাম (শাটার মেকানিক)</option>
+              <option value="ariful">আরিফুল ইসলাম (ইলেকট্রিশিয়ান)</option>
+              <option value="sumon">সুমন মিয়া (প্লাম্বার)</option>
+              <option value="unassigned">পরে নির্ধারণ করা হবে</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">সমস্যার বিস্তারিত বিবরণ*</label>
+          <textarea rows="3" required placeholder="কি ধরণের সমস্যা হচ্ছে বিস্তারিত লিখুন..." class="w-full px-3 py-2 border border-slate-200 rounded-xl"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('newComplaintModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-md shadow-blue-500/20">অভিযোগ জমা দিন</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Resolve Complaint Modal -->
+  <div id="resolveComplaintModal" class="modal-wrapper fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 modal-backdrop" onclick="closeModal('resolveComplaintModal')"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 modal-content z-10">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 class="text-base font-bold text-slate-800">অভিযোগ সমাধান ও সমাপ্তি</h3>
+          <p class="text-xs text-slate-500">টিকেট: <span id="resTicketId" class="font-mono font-bold text-blue-600">#CMP-8821</span></p>
+        </div>
+        <button onclick="closeModal('resolveComplaintModal')" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); handleResolveSubmit();" class="mt-4 space-y-4 text-xs">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1">
+          <p><span class="text-slate-500">দোকান নং:</span> <strong id="resShop">শপ #C-302</strong></p>
+          <p><span class="text-slate-500">সমস্যা:</span> <strong id="resIssue">শাটার সমস্যা</strong></p>
+          <p><span class="text-slate-500">টেকনিশিয়ান:</span> <strong id="resTech">মো: কালাম</strong></p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">সমাধানের বিবরণ (Resolution Note)*</label>
+          <textarea rows="3" required placeholder="শাটারের নতুন স্প্রিং লাগানো হয়েছে এবং স্মুথলি কাজ করছে..." class="w-full px-3 py-2 border border-slate-200 rounded-xl"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">মেরামতের খরচ (৳) [প্রযোজ্য হলে]</label>
+          <input type="number" value="1500" class="w-full px-3 py-2 border border-slate-200 rounded-xl font-bold">
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('resolveComplaintModal')" class="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-semibold">বাতিল</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-md shadow-emerald-500/20">
+            <i class="fa-solid fa-circle-check mr-1"></i> সমাধান চিহ্নিত করুন
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Scripts -->
+  <script src="assets/js/common.js"></script>
+  <script>
+    function switchSection(sec) {
+      const noticeSec = document.getElementById('noticeSection');
+      const compSec = document.getElementById('complaintSection');
+      const tabNotice = document.getElementById('tabNoticeBtn');
+      const tabComp = document.getElementById('tabComplaintBtn');
+
+      if (sec === 'notice') {
+        noticeSec.classList.remove('hidden');
+        compSec.classList.add('hidden');
+        tabNotice.classList.add('border-blue-600', 'text-blue-600');
+        tabNotice.classList.remove('border-transparent', 'text-slate-500');
+        tabComp.classList.add('border-transparent', 'text-slate-500');
+        tabComp.classList.remove('border-blue-600', 'text-blue-600');
+      } else {
+        compSec.classList.remove('hidden');
+        noticeSec.classList.add('hidden');
+        tabComp.classList.add('border-blue-600', 'text-blue-600');
+        tabComp.classList.remove('border-transparent', 'text-slate-500');
+        tabNotice.classList.add('border-transparent', 'text-slate-500');
+        tabNotice.classList.remove('border-blue-600', 'text-blue-600');
+      }
+    }
+
+    function openResolveModal(ticket, shop, issue, tech) {
+      document.getElementById('resTicketId').innerText = ticket;
+      document.getElementById('resShop').innerText = shop;
+      document.getElementById('resIssue').innerText = issue;
+      document.getElementById('resTech').innerText = tech;
+      openModal('resolveComplaintModal');
+    }
+
+    function handleResolveSubmit() {
+      const ticket = document.getElementById('resTicketId').innerText;
+      closeModal('resolveComplaintModal');
+      showToast(`${ticket} সফলভাবে সমাধান সম্পন্ন হিসেবে আপডেট হয়েছে!`, 'success');
+    }
+
+    function filterComplaint(filter) {
+      document.querySelectorAll('.complaint-pill').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('bg-blue-600', 'text-white');
+
+      const rows = document.querySelectorAll('#complaintTableBody tr');
+      rows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        if (filter === 'all' || status === filter) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
