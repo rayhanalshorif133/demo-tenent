@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>লগআউট | স্টেডিয়াম মার্কেট ম্যানেজমেন্ট সিস্টেম</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-850 to-blue-950 min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden">
+
+  <!-- Background Decorative Blur -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Logout Card -->
+  <div class="relative w-full max-w-md z-10">
+    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 text-center">
+      
+      <!-- Animated Check Icon -->
+      <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-4 ring-8 ring-emerald-50">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-800">সফলভাবে লগআউট সম্পন্ন হয়েছে</h2>
+      <p class="text-xs text-slate-500 mt-1">আপনার বর্তমান সেশনটি নিরাপদে বন্ধ করা হয়েছে। সিস্টেমে প্রবেশ করার জন্য পুনরায় লগইন করুন।</p>
+
+      <!-- Redirect Countdown Box -->
+      <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+        <p class="text-xs font-semibold text-slate-600">
+          <span id="countdownText" class="font-bold text-blue-600 text-sm">৩</span> সেকেন্ডের মধ্যে লগইন পেজে নিয়ে যাওয়া হচ্ছে...
+        </p>
+        <!-- Animated Progress bar -->
+        <div class="w-full bg-slate-200 h-1.5 rounded-full mt-3 overflow-hidden">
+          <div id="countdownBar" class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <!-- Immediate Action Button -->
+      <div class="mt-6">
+        <a href="login.html?logout=true" class="w-full inline-flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/25 transition">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>এখনই লগইন পেজে যান</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer Copyright -->
+    <p class="text-center text-xs text-slate-400 mt-6">
+      জাতীয় স্টেডিয়াম মার্কেট ম্যানেজমেন্ট সিস্টেম &copy; ২০২৬
+    </p>
+  </div>
+
+  <script>
+    // Clear user session
+    localStorage.removeItem('stadium_auth');
+    sessionStorage.clear();
+
+    // 3 Second Countdown and Redirect
+    let secondsLeft = 3;
+    const countdownText = document.getElementById('countdownText');
+    const countdownBar = document.getElementById('countdownBar');
+
+    const interval = setInterval(() => {
+      secondsLeft--;
+      if (countdownText) {
+        countdownText.innerText = secondsLeft;
+      }
+      if (countdownBar) {
+        countdownBar.style.width = (secondsLeft / 3 * 100) + '%';
+      }
+
+      if (secondsLeft <= 0) {
+        clearInterval(interval);
+        window.location.href = 'login.html?logout=true';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
